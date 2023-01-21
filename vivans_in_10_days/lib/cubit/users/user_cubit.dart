@@ -22,6 +22,8 @@ class UserCubit extends Cubit<UserState> {
       event.exists
           ? {
               print("User Exists"),
+              emit(state.copyModel(
+                  userModel: UserModel.fromjson(event.data()!, event.id))),
               emit(UserExists(
                   userModel: UserModel.fromjson(event.data()!, event.id)))
             }
@@ -55,24 +57,6 @@ class UserCubit extends Cubit<UserState> {
         .set(userModel.toJson())
         .then((value) => emit(UserSavedUpdatedState(userModel: userModel)));
   }
-
-  // Future<void> addUser({required UserModel user}) async {
-  //   emit(UserSideLoadingState());
-  //   _firestore
-  //       .collection('users')
-  //       .doc(_currentUser?.uid)
-  //       .set(user.toJson())
-  //       .catchError((err) {
-  //     emit(UserException(error: err));
-  //   }).then((val) {
-  //     print("The user is ${user.toJson()}");
-  //     emit(UserSavedUpdatedState(sample: state.sampleModel!));
-  //     // UserModel = user;
-
-  //   });
-
-  //   // await userCollection.add(user.toJson());
-  // }
 
   Future<void> addAddress({required AddressModel address}) async {
     emit(UserButtonLoadingState());

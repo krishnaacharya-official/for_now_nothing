@@ -1,9 +1,12 @@
-import 'package:equatable/equatable.dart';
 import 'package:vivans_in_10_days/models/user_model.dart';
 
-class UserState extends Equatable {
+class UserState {
   final UserModel? userModel;
   const UserState({this.userModel});
+  UserState copyModel({required UserModel userModel}) {
+    return UserState(userModel: userModel);
+  }
+
   UserState copyWith(
       {String? name,
       String? avatar,
@@ -19,8 +22,8 @@ class UserState extends Equatable {
             avatar: avatar ?? userModel?.avatar ?? ""));
   }
 
-  @override
-  List<Object?> get props => [userModel];
+  // @override
+  // List<Object?> get props => [userModel];
 }
 
 class UserInitialState extends UserState {}

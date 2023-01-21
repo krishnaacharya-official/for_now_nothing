@@ -36,19 +36,17 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
   bool _formChecked = false;
   bool _dateChecked = false;
   // AppUser? appUser;
-
-  late UserState _userState = const UserState();
+  late UserCubit userCubit;
+  late UserState _userState;
   get updateDetails => _userState.userModel != null;
 
   @override
   void initState() {
-    _userState = const UserState();
+    super.initState();
+    userCubit = BlocProvider.of<UserCubit>(context);
+    _userState = userCubit.state;
     print(
         "I am inside the initState The value of userstate is ${_userState.userModel}");
-    // print('inside init state');
-    // print(
-    //     "THe number is : ${FirebaseAuth.instance.currentUser?.phoneNumber.toString()}");
-    //  authCubit.onChange((change)=>print("Change is change"));
     fullNameController = TextEditingController();
     dateOfBirthController = TextEditingController();
     phoneNumberController = TextEditingController();
@@ -60,7 +58,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
 
       selectedAvatar = _userState.userModel?.avatar == "boy"
           ? Avatar.boy
-          : _userState.userModel?.avatar == "boy"
+          : _userState.userModel?.avatar == "girl"
               ? Avatar.girl
               : null;
       if (dateArray != [] && dateArray.isNotEmpty) {
@@ -73,7 +71,6 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
       phoneNumberController!.text = _userState.userModel?.phoneNumber ?? "";
       fullNameController!.text = _userState.userModel?.fullName ?? "";
     }
-    super.initState();
   }
 
   @override
@@ -87,115 +84,56 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
               },
               icon: const Icon(Icons.navigate_before)),
         ),
-        body: BlocConsumer<UserCubit, UserState>(listener: (context, state) {
-          // print("State is ${state.runtimeType}");
+        body: BlocListener<UserCubit, UserState>(
+          listener: (context, state) {
+            print("I am inside the listener");
+            if (state.userModel != null) {
+              print("State is ${state.runtimeType}");
 
-          // if (state.userModel != null) {
-          //   print("User Exists broo");
-          //   print("State is ${state.runtimeType}");
+              var dateArray = state.userModel?.dob.split('/') ?? [];
 
-          //   var dateArray = state.userModel?.dob.split('/') ?? [];
+              selectedAvatar = state.userModel?.avatar == "boy"
+                  ? Avatar.boy
+                  : state.userModel?.avatar == "boy"
+                      ? Avatar.girl
+                      : null;
+              if (dateArray != [] && dateArray.isNotEmpty) {
+                selectedDateTime = DateTime(int.parse(dateArray[2]),
+                    int.parse(dateArray[1]), int.parse(dateArray[0]));
+              }
 
-          //   selectedAvatar = state.userModel?.avatar == "boy"
-          //       ? Avatar.boy
-          //       : state.userModel?.avatar == "boy"
-          //           ? Avatar.girl
-          //           : null;
-          //   if (dateArray != [] && dateArray.isNotEmpty) {
-          //     selectedDateTime = DateTime(int.parse(dateArray[2]),
-          //         int.parse(dateArray[1]), int.parse(dateArray[0]));
-          //   }
-
-          //   dateOfBirthController!.text = state.userModel?.dob ?? "";
-          //   mailAddressController!.text = state.userModel?.email ?? "";
-          //   phoneNumberController!.text = state.userModel?.phoneNumber ?? "";
-          // fullNameController!.text = state.userModel?.fullName ?? "";
-          // }
-          if (state is UserExists) {
-            print("User Exists broo");
-            print("State is ${state.runtimeType}");
-            print(
-                "I am inside profile widget inside the userExists listener ${state.userModel.toString()}");
-            var dateArray = state.userModel?.dob.split('/') ?? [];
-
-            selectedAvatar = state.userModel?.avatar == "boy"
-                ? Avatar.boy
-                : state.userModel?.avatar == "boy"
-                    ? Avatar.girl
-                    : null;
-            if (dateArray != [] && dateArray.isNotEmpty) {
-              selectedDateTime = DateTime(int.parse(dateArray[2]),
-                  int.parse(dateArray[1]), int.parse(dateArray[0]));
+              dateOfBirthController!.text = state.userModel?.dob ?? "";
+              mailAddressController!.text = state.userModel?.email ?? "";
+              phoneNumberController!.text = state.userModel?.phoneNumber ?? "";
+              fullNameController!.text = state.userModel?.fullName ?? "";
             }
-
-            dateOfBirthController!.text = state.userModel?.dob ?? "";
-            mailAddressController!.text = state.userModel?.email ?? "";
-            phoneNumberController!.text = state.userModel?.phoneNumber ?? "";
-            fullNameController!.text = state.userModel?.fullName ?? "";
-            // print("I am already loaded bro");
-            // var dateArray = UserCubit.appUser!.dob.split('/');
-            // setState(() {
-            //   selectedAvatar =
-            //       UserCubit.appUser!.avatar == "boy" ? Avatar.boy : Avatar.girl;
-            //   selectedDateTime = DateTime(int.parse(dateArray[2]),
-            //       int.parse(dateArray[1]), int.parse(dateArray[0]));
-            // });
-            // dateOfBirthController!.text = UserCubit.appUser!.dob;
-            // mailAddressController!.text = UserCubit.appUser!.email;
-            // phoneNumberController!.text = UserCubit.appUser!.phoneNumber;
-            // fullNameController!.text = UserCubit.appUser!.fullName;
-          }
-          if (state is UserSavedUpdatedState) {
-            context.goNamed(Routes.profileMain);
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                behavior: SnackBarBehavior.floating,
-                margin: const EdgeInsets.all(16),
-                backgroundColor: DesignColor.green,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10)),
-                content: updateDetails
-                    ? const Text("Details Updated Successfully")
-                    : const Text("Details Saved Succesfully"),
-                // content: const Text("Details Save"),
-                duration: const Duration(seconds: 3)));
-          }
-          if (state is UserException) {
-            context.goNamed(Routes.profileMain);
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                behavior: SnackBarBehavior.floating,
-                margin: const EdgeInsets.all(16),
-                backgroundColor: DesignColor.red,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10)),
-                content: Text(state.error),
-                duration: const Duration(seconds: 3)));
-          }
-        }, builder: (context, state) {
-          // if (state.userModel != null) {
-          // print("I am building");
-          // print("user is ${state.userModel.toString()}");
-          // var dateArray = state.userModel?.dob.split('/') ?? [];
-
-          // selectedAvatar = state.userModel?.avatar == "boy"
-          //     ? Avatar.boy
-          //     : state.userModel?.avatar == "boy"
-          //         ? Avatar.girl
-          //         : null;
-          // if (dateArray != [] && dateArray.isNotEmpty) {
-          //   selectedDateTime = DateTime(int.parse(dateArray[2]),
-          //       int.parse(dateArray[1]), int.parse(dateArray[0]));
-          // }
-
-          // dateOfBirthController!.text = state.userModel?.dob ?? "";
-          // mailAddressController!.text = state.userModel?.email ?? "";
-          // phoneNumberController!.text = state.userModel?.phoneNumber ?? "";
-          // fullNameController!.text = state.userModel?.fullName ?? "";
-          // }
-          if (state is UserMainLoadingState) {
-            return const Center(child: CircularProgressIndicator());
-          }
-
-          return SizedBox(
+            if (state is UserSavedUpdatedState) {
+              context.goNamed(Routes.profileMain);
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  behavior: SnackBarBehavior.floating,
+                  margin: const EdgeInsets.all(16),
+                  backgroundColor: DesignColor.green,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  content: updateDetails
+                      ? const Text("Details Updated Successfully")
+                      : const Text("Details Saved Succesfully"),
+                  // content: const Text("Details Save"),
+                  duration: const Duration(seconds: 3)));
+            }
+            if (state is UserException) {
+              context.goNamed(Routes.profileMain);
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  behavior: SnackBarBehavior.floating,
+                  margin: const EdgeInsets.all(16),
+                  backgroundColor: DesignColor.red,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  content: Text(state.error),
+                  duration: const Duration(seconds: 3)));
+            }
+          },
+          child: SizedBox(
               width: double.infinity,
               child: SingleChildScrollView(
                 child: Column(
@@ -207,14 +145,15 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                       children: [
                         InkWell(
                           onTap: () {
-                            BlocProvider.of<UserCubit>(context)
-                                .updateUser(avatar: "boy");
+                            setState(() {
+                              selectedAvatar = Avatar.boy;
+                            });
                           },
                           child: Container(
                             height: 64,
                             width: 64,
                             decoration: BoxDecoration(
-                                border: state.userModel?.avatar == "boy"
+                                border: selectedAvatar == Avatar.boy
                                     ? Border.all(
                                         color: DesignColor.orange,
                                         width: 5,
@@ -225,29 +164,21 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                                 image: const DecorationImage(
                                     image: AssetImage(
                                         'assets/images/avatars/boy.png'))),
-                            // child: Visibility(
-                            //   visible: false,
-                            //   child: Icon(
-                            //     Icons.done,
-                            //     size: 64,
-                            //     color: DesignColor.green,
-                            //   ),
-                            // ),
                           ),
                         ),
                         "OR".textMediumRegular().paddingHorizontal(8),
                         InkWell(
                           onTap: () {
-                            BlocProvider.of<UserCubit>(context).updateUser(
-                              avatar: "girl",
-                            );
+                            setState(() {
+                              selectedAvatar = Avatar.girl;
+                            });
                             // state.appUser?.avatar = "girl";
                           },
                           child: Container(
                             height: 64,
                             width: 64,
                             decoration: BoxDecoration(
-                                border: state.userModel?.avatar == "girl"
+                                border: selectedAvatar == Avatar.girl
                                     ? Border.all(
                                         color: DesignColor.orange,
                                         width: 5,
@@ -258,14 +189,6 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                                 image: const DecorationImage(
                                     image: AssetImage(
                                         'assets/images/avatars/girl.png'))),
-                            // child: Visibility(
-                            //   visible: false,
-                            //   child: Icon(
-                            //     Icons.done,
-                            //     size: 64,
-                            //     color: DesignColor.orange,
-                            //   ),
-                            // ),
                           ),
                         ),
                       ],
@@ -273,7 +196,6 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                     Form(
                       key: _fullNameKey,
                       child: TextFormField(
-                        // initialValue: state.userModel?.fullName ?? "",
                         autovalidateMode: _formChecked
                             ? AutovalidateMode.always
                             : AutovalidateMode.disabled,
@@ -345,7 +267,6 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                     Form(
                       key: _phoneKey,
                       child: TextFormField(
-                        // initialValue: state.userModel?.phoneNumber ?? "",
                         validator: (value) {
                           if (value == null ||
                               phoneNumberController?.text.trim() == "") {
@@ -368,7 +289,6 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                     Form(
                       key: _mailKey,
                       child: TextFormField(
-                        // initialValue: state.userModel?.ma ?? "",
                         decoration:
                             const InputDecoration(labelText: "Email Address"),
                         keyboardType: TextInputType.emailAddress,
@@ -392,8 +312,8 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                     ),
                   ],
                 ),
-              )).paddingAll(16);
-        }),
+              )).paddingAll(16),
+        ),
         bottomNavigationBar: BlocBuilder<UserCubit, UserState>(
           builder: (context, state) {
             if (state is UserButtonLoadingState) {
@@ -415,7 +335,8 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
 
             return FilledButton(
                     onPressed: () {
-                      if (state.userModel?.avatar == null) {
+                      print("selectedAvatar $selectedAvatar");
+                      if (selectedAvatar == null) {
                         /**alert: see this if this works even initially when the user is not in the database  */
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           behavior: SnackBarBehavior.floating,
@@ -431,12 +352,13 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                           _dateOfBirthKey.currentState!.validate() &&
                           _phoneKey.currentState!.validate() &&
                           _mailKey.currentState!.validate() &&
-                          state.userModel?.avatar != null) {
+                          selectedAvatar != null) {
                         print(
                             "Inside the button press of the my profile screen");
 
                         UserModel userModel = UserModel(
-                            avatar: state.userModel!.avatar,
+                            avatar:
+                                selectedAvatar == Avatar.boy ? "boy" : "girl",
                             dob: dateOfBirthController!.text,
                             email: mailAddressController!.text,
                             fullName: fullNameController!.text,
@@ -455,10 +377,10 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                         _formChecked = true;
                       });
                     },
-                    // child: state.appUser != null
-                    //     ? "Update Profile".textLargeBold(DesignColor.white)
-                    //     : "Save Profile".textLargeBold(DesignColor.white))
-                    child: "Save Profile".textLargeBold())
+                    child: updateDetails
+                        ? "Update Profile".textLargeBold(DesignColor.white)
+                        : "Save Profile".textLargeBold(DesignColor.white))
+                // child: "Save Profile".textLargeBold())
                 .paddingHorizontal(16)
                 .marginDown(16);
           },
