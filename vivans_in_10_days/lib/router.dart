@@ -12,14 +12,11 @@
 // import 'package:vivans_in_10_days/screens/profile/my_address.dart';
 // import 'package:vivans_in_10_days/screens/profile/my_profile.dart';
 // import 'package:vivans_in_10_days/screens/profile/profile_%20main.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vivans_in_10_days/app_routes.dart';
 import 'package:vivans_in_10_days/cubit/auth/auth_cubit.dart';
 import 'package:vivans_in_10_days/cubit/auth/auth_state.dart';
-import 'package:vivans_in_10_days/cubit/internet_cubit.dart';
-import 'package:vivans_in_10_days/helpers/miscillenous.dart';
 import 'package:vivans_in_10_days/models/address_model.dart';
 import 'package:vivans_in_10_days/screens/home/bottom_navigation_home.dart';
 import 'package:vivans_in_10_days/screens/home/cart_screen.dart';
@@ -36,56 +33,16 @@ final GoRouter router = GoRouter(initialLocation: '/', routes: [
   GoRoute(
       path: "/",
       builder: (context, state) {
-        bool isDialogDisplayed = false;
-        return BlocConsumer<ConnectivityCubit, ConnectivityState>(
-          listener: (context, state) {
-            if (state == ConnectivityState.disconnected) {
-              isDialogDisplayed = true;
-            }
-            if (state == ConnectivityState.connected &&
-                isDialogDisplayed == true) {
-              isDialogDisplayed = false;
-            }
-          },
-          builder: (context, state) {
-            if (state == ConnectivityState.init) {
-              return const Scaffold(
-                  body: CircularProgressIndicator()); // Shimmer home
-            }
-            return isDialogDisplayed
-                ? Scaffold(
-                    body: NoDataHelper(
-                        title: "No Connection",
-                        subtitle:
-                            "Please check your internet connection and Try again",
-                        buttonTitle: "Retry",
-                        buttonType: ButtonType.filled,
-                        iconData: Icons.wifi_off_outlined,
-                        onTap: () {}),
-                  )
-                : state == ConnectivityState.connected
-                    ? BlocBuilder<AuthCubit, AuthState>(
-                        buildWhen: (oldState, newState) {
-                          return oldState is AuthInitialState;
-                          //  ||                oldState is AuthLoggedOutState // oTP Screen willl not be shown;
-                        },
-                        builder: (context, state) {
-                          if (state is AuthLoggedInState) {
-                            print("I am inside authlogged in");
-                            return const MainHomeScreen();
-                            // return const MyAddress();
-                          } else {
-                            print("I am side authlogged out");
-                            return SignIn();
-                          }
-                        },
-                      )
-                    : const Scaffold(
-                        body: Center(
-                            child:
-                                CircularProgressIndicator())); /**alert: Add shimmer container here */
-          },
-        );
+        return BlocBuilder<AuthCubit, AuthState>(
+            buildWhen: (oldState, newState) {
+          return oldState is AuthInitialState;
+        }, builder: (context, state) {
+          if (state is AuthLoggedInState) {
+            return const MainHomeScreen();
+          } else {
+            return SignIn();
+          }
+        });
       }),
   GoRoute(
       path: '/homeMain',
