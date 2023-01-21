@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:vivans_in_10_days/design_system/colors.dart';
 import 'package:vivans_in_10_days/design_system/text.dart';
 import 'package:vivans_in_10_days/helpers/extensions.dart';
+import 'package:vivans_in_10_days/helpers/widgets/product_tile_home.dart';
 import 'package:vivans_in_10_days/screens/home/nav_bar.dart';
 import 'package:vivans_in_10_days/screens/home/search_screen.dart';
-import 'package:vivans_in_10_days/widgets/product_tile_home.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});

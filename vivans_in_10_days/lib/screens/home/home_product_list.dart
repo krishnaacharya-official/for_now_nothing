@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:vivans_in_10_days/design_system/text.dart';
 import 'package:vivans_in_10_days/helpers/extensions.dart';
-import 'package:vivans_in_10_days/widgets/product_tile_category.dart';
+import 'package:vivans_in_10_days/helpers/widgets/product_tile_category.dart';
 
 /**alert: Use Staggered GridView */
 /**https://codewithandrea.com/articles/flutter-layout-grid-content-sized-items/ */

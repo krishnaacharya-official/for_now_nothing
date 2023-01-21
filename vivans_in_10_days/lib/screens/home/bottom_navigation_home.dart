@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vivans_in_10_days/screens/home/categories_all.dart';
 import 'package:vivans_in_10_days/screens/home/home.dart';
 import 'package:vivans_in_10_days/screens/home/search_screen.dart';
+import 'package:vivans_in_10_days/screens/profile/profile_%20main.dart';
 
 class MainHomeScreen extends StatefulWidget {
   const MainHomeScreen({super.key});
@@ -16,8 +17,7 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
     const Home(),
     SearchScreen(),
     const CategoriesScreen(),
-    // const ProfileScreen()
-    const Home()
+    const ProfileScreen()
   ];
   @override
   Widget build(BuildContext context) {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vivans_in_10_days/design_system/text.dart';
 import 'package:vivans_in_10_days/helpers/extensions.dart';
-import 'package:vivans_in_10_days/widgets/product_tile_search.dart';
+import 'package:vivans_in_10_days/helpers/widgets/product_tile_search.dart';
 
 class SearchScreenDelegate extends SearchDelegate {
   List<String> searchTerms = [

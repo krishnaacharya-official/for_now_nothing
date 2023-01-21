@@ -1,10 +1,10 @@
-import 'package:vivans_in_10_days/design_system/colors.dart';
-import 'package:vivans_in_10_days/design_system/text.dart';
-import 'package:vivans_in_10_days/helpers/extensions.dart';
-import 'package:vivans_in_10_days/widgets/product_tile_search.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
+import 'package:vivans_in_10_days/design_system/colors.dart';
+import 'package:vivans_in_10_days/design_system/text.dart';
+import 'package:vivans_in_10_days/helpers/extensions.dart';
+import 'package:vivans_in_10_days/helpers/widgets/product_tile_search.dart';
 
 class DetailsScreen extends StatefulWidget {
   String sample;

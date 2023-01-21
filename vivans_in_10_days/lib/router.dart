@@ -19,13 +19,18 @@ import 'package:vivans_in_10_days/app_routes.dart';
 import 'package:vivans_in_10_days/cubit/auth/auth_cubit.dart';
 import 'package:vivans_in_10_days/cubit/auth/auth_state.dart';
 import 'package:vivans_in_10_days/cubit/internet_cubit.dart';
-import 'package:vivans_in_10_days/helpers/home.dart';
 import 'package:vivans_in_10_days/helpers/miscillenous.dart';
+import 'package:vivans_in_10_days/models/address_model.dart';
 import 'package:vivans_in_10_days/screens/home/bottom_navigation_home.dart';
 import 'package:vivans_in_10_days/screens/home/cart_screen.dart';
 import 'package:vivans_in_10_days/screens/home/details_screen.dart';
+import 'package:vivans_in_10_days/screens/home/home.dart';
 import 'package:vivans_in_10_days/screens/phoneAuth/otp_screen.dart';
 import 'package:vivans_in_10_days/screens/phoneAuth/sign_in.dart';
+import 'package:vivans_in_10_days/screens/profile/add_address.dart';
+import 'package:vivans_in_10_days/screens/profile/my_address.dart';
+import 'package:vivans_in_10_days/screens/profile/my_profile.dart';
+import 'package:vivans_in_10_days/screens/profile/profile_%20main.dart';
 
 final GoRouter router = GoRouter(initialLocation: '/', routes: [
   GoRoute(
@@ -70,7 +75,7 @@ final GoRouter router = GoRouter(initialLocation: '/', routes: [
                             return const MainHomeScreen();
                             // return const MyAddress();
                           } else {
-                            print("I am inside authlogged out");
+                            print("I am side authlogged out");
                             return SignIn();
                           }
                         },
@@ -96,7 +101,6 @@ final GoRouter router = GoRouter(initialLocation: '/', routes: [
       builder: (context, state) => DetailsScreen(
             sample: state.queryParams[0]!,
           )),
-
   GoRoute(
       path: '/otpScreen/:id',
       name: Routes.otpScreen,
@@ -109,22 +113,22 @@ final GoRouter router = GoRouter(initialLocation: '/', routes: [
       name: Routes.signIn,
       path: '/signIn',
       builder: (context, state) => SignIn(number: state.queryParams['number'])),
-  // GoRoute(
-  //     path: '/profile',
-  //     name: Routes.profileMain,
-  //     builder: (context, state) => const ProfileScreen()),
-  // GoRoute(
-  //     path: '/profileMine',
-  //     name: Routes.profileMine,
-  //     builder: (context, state) => const MyProfileScreen()),
-  // GoRoute(
-  //     path: '/address',
-  //     name: Routes.addressMine,
-  //     builder: (context, state) => const MyAddress()),
-  // GoRoute(
-  //     path: '/addAddress',
-  //     name: Routes.addressAdd,
-  //     builder: (context, state) => state.queryParams.isNotEmpty
-  //         ? AddAddress(address: Address.fromJsonString(state.queryParams))
-  //         : AddAddress())
+  GoRoute(
+      path: '/profile',
+      name: Routes.profileMain,
+      builder: (context, state) => const ProfileScreen()),
+  GoRoute(
+      path: '/profileMine',
+      name: Routes.profileMine,
+      builder: (context, state) => const MyProfileScreen()),
+  GoRoute(
+      path: '/address',
+      name: Routes.addressMine,
+      builder: (context, state) => const MyAddress()),
+  GoRoute(
+      path: '/addAddress',
+      name: Routes.addressAdd,
+      builder: (context, state) => state.queryParams.isNotEmpty
+          ? AddAddress(address: AddressModel.fromJsonString(state.queryParams))
+          : AddAddress())
 ]);
