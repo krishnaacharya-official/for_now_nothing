@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "972330953406",
+    "project_id": "vivans-mobile",
+    "storage_bucket": "vivans-mobile.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:972330953406:android:5a2a3e9c316da0acf60cef",
+        "android_client_info": {
+          "package_name": "com.example.vivans_in_10_days"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "972330953406-4behosju6jnoa6bmu6j3q0qh7nbluv5q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.vivans_in_10_days",
+            "certificate_hash": "4cd7c12e641a1f8304926c8a5d774a9bb7effa1e"
+          }
+        },
+        {
+          "client_id": "972330953406-6g6asnhfu5h99lldnvcpkvdngticmb8j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqxdJoEegfMQfvnfC_6lsG7F1vSZg2yBQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "972330953406-6g6asnhfu5h99lldnvcpkvdngticmb8j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

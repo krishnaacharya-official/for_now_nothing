@@ -30,11 +30,22 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  cloud_firestore:
   connectivity_plus:
+  equatable:
+  firebase_auth:
+  firebase_core:
   flutter_bloc:
-  shimmer:
-  build_runner:
+  mongo_dart:
+  pin_code_fields:
+  dropdown_button2:
   go_router:
+  shimmer:
+  dio:
+  pretty_dio_logger:
+  smooth_page_indicator: 1.0.0+2
+  cached_network_image: ^3.2.3
+
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
@@ -59,6 +70,23 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  assets:
+    - assets/lottie/no_wifi.json
+    - assets/images/avatars/
+    - assets/images/home/
+    - assets/images/miscellenous/
+  fonts:
+    - family: Poppins
+      fonts:
+        - asset: assets/font/Poppins-Black.ttf
+        - asset: assets/font/Poppins-Bold.ttf
+        - asset: assets/font/Poppins-ExtraBold.ttf
+        - asset: assets/font/Poppins-ExtraLight.ttf
+        - asset: assets/font/Poppins-Light.ttf
+        - asset: assets/font/Poppins-Medium.ttf
+        - asset: assets/font/Poppins-Regular.ttf
+        - asset: assets/font/Poppins-SemiBold.ttf
+        - asset: assets/font/Poppins-Thin.ttf
 
   # To add assets to your application, add an assets section, like this:
   # assets:

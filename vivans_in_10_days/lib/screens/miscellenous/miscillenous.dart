@@ -1,21 +1,19 @@
-import 'package:flutter/material.dart';
 import 'package:vivans_in_10_days/design_system/colors.dart';
 import 'package:vivans_in_10_days/design_system/text.dart';
 import 'package:vivans_in_10_days/helpers/extensions.dart';
+import 'package:flutter/material.dart';
 
 enum ButtonType { outline, filled }
 
 class NoDataHelper extends StatelessWidget {
   IconData iconData;
   String title;
-  String? subtitle;
   ButtonType buttonType;
   String buttonTitle;
   Function onTap;
   NoDataHelper({
     super.key,
     required this.iconData,
-    this.subtitle,
     required this.title,
     required this.buttonTitle,
     required this.buttonType,
@@ -45,18 +43,7 @@ class NoDataHelper extends StatelessWidget {
                 ),
               ),
             ).marginDown(32),
-            title.textLargeBold().marginDown(32),
-            subtitle != null
-                // ? subtitle!
-                //     .textMediumRegular()
-                //     .marginDown(32)
-                //     .paddingHorizontal(32)
-                ? Text(
-                    subtitle!,
-                    style: textStyleMediumRegular(),
-                    textAlign: TextAlign.center,
-                  ).marginDown(32).paddingHorizontal(48)
-                : Container(),
+            "No Address".textLargeBold().marginDown(32),
             SizedBox(
               width: MediaQuery.of(context).size.width / 2,
               child: buttonType == ButtonType.outline
