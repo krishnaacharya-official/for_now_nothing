@@ -21,47 +21,61 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
   ];
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: _screens[_currentIndex],
-        bottomNavigationBar: BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,
-            currentIndex: _currentIndex,
-            onTap: (value) {
-              setState(() {
-                _currentIndex = value;
-              });
-            },
-            // useLegacyColorScheme: false,
-            // selectedItemColor: Colors.blue[700],
-            // selectedFontSize: 13,
-            // unselectedFontSize: 13,
-            selectedFontSize: 12,
-            // iconSize: 30,
-            items: [
-              BottomNavigationBarItem(
-                label: "Home",
-                icon: _currentIndex == 0
-                    ? const Icon(Icons.home_filled)
-                    : const Icon(Icons.home_outlined),
-              ),
-              BottomNavigationBarItem(
-                label: "Search",
-                icon: _currentIndex == 1
-                    ? const Icon(Icons.search_rounded)
-                    : const Icon(Icons.search_outlined),
-              ),
-              BottomNavigationBarItem(
-                label: "Categories",
-                icon: _currentIndex == 2
-                    ? const Icon(Icons.grid_view_rounded)
-                    : const Icon(Icons.grid_view_outlined),
-              ),
-              BottomNavigationBarItem(
-                label: "Account",
-                icon: _currentIndex == 3
-                    ? const Icon(Icons.account_circle_rounded)
-                    : const Icon(Icons.account_circle_outlined),
-              ),
-            ]));
+    return WillPopScope(
+      onWillPop: _onWillPop,
+      child: Scaffold(
+          body: _screens[_currentIndex],
+          bottomNavigationBar: BottomNavigationBar(
+              type: BottomNavigationBarType.fixed,
+              currentIndex: _currentIndex,
+              onTap: (value) {
+                setState(() {
+                  _currentIndex = value;
+                });
+              },
+              // useLegacyColorScheme: false,
+              // selectedItemColor: Colors.blue[700],
+              // selectedFontSize: 13,
+              // unselectedFontSize: 13,
+              selectedFontSize: 12,
+              // iconSize: 30,
+              items: [
+                BottomNavigationBarItem(
+                  label: "Home",
+                  icon: _currentIndex == 0
+                      ? const Icon(Icons.home_filled)
+                      : const Icon(Icons.home_outlined),
+                ),
+                BottomNavigationBarItem(
+                  label: "Search",
+                  icon: _currentIndex == 1
+                      ? const Icon(Icons.search_rounded)
+                      : const Icon(Icons.search_outlined),
+                ),
+                BottomNavigationBarItem(
+                  label: "Categories",
+                  icon: _currentIndex == 2
+                      ? const Icon(Icons.grid_view_rounded)
+                      : const Icon(Icons.grid_view_outlined),
+                ),
+                BottomNavigationBarItem(
+                  label: "Account",
+                  icon: _currentIndex == 3
+                      ? const Icon(Icons.account_circle_rounded)
+                      : const Icon(Icons.account_circle_outlined),
+                ),
+              ])),
+    );
+  }
+
+  Future<bool> _onWillPop() async {
+    if (_currentIndex != 0) {
+      setState(() {
+        _currentIndex = 0;
+      });
+      return false;
+    } else {
+      return true;
+    }
   }
 }

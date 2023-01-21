@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -18,7 +19,7 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: DesignColor.grey,
       appBar: AppBar(
-        title: const Text("Profile"),
+        title: "Profile".appBarText(),
         backgroundColor: DesignColor.green,
       ),
       body: BlocBuilder<UserCubit, UserState>(builder: (context, state) {
@@ -32,36 +33,32 @@ class ProfileScreen extends StatelessWidget {
                   width: double.infinity,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    children: const [
-                      // Container(
-                      //     height: 64,
-                      //     width: 64,
-                      //     decoration: BoxDecoration(
-                      //         image: DecorationImage(
-                      //             image: AssetImage(state.appUser?.avatar ==
-                      //                     "boy"
-                      //                 ? 'assets/images/avatars/boy.png'
-                      //                 : state.appUser?.avatar == "girl"
-                      //                     ? "assets/images/avatars/girl.png"
-                      //                     : "assets/images/avatars/user_1.png"))),
-                      //     child: Container()),
-                      // /**Feature: Add valid username and number */
-                      // state.appUser?.fullName
-                      //         .textLargeBold(DesignColor.white)
-                      //         .marginTop() ??
-                      //     Container().marginTop(),
-                      // // "User Name"
-                      // //     .textLargeBold(DesignColor.white)
-                      // //     .marginTop(),
-                      // state.appUser?.phoneNumber
-                      //         .textLargeBold(DesignColor.white)
-                      //         .marginTop(8)
-                      //         .marginDown(16) ??
-                      //     Container().marginTop(8).marginDown(16)
-                      // // "+91-239429429"
-                      // //     .textLargeRegular(DesignColor.white)
-                      // //     .marginTop(8)
-                      // //     .marginDown(16)
+                    children: [
+                      Container(
+                          height: 64,
+                          width: 64,
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage(state.userModel?.avatar ==
+                                          "boy"
+                                      ? 'assets/images/avatars/boy.png'
+                                      : state.userModel?.avatar == "girl"
+                                          ? "assets/images/avatars/girl.png"
+                                          : "assets/images/avatars/user_1.png"))),
+                          child: Container()),
+                      state.userModel?.fullName
+                              .textLargeBold(DesignColor.white)
+                              .marginTop() ??
+                          Container(),
+                      FirebaseAuth.instance.currentUser?.phoneNumber
+                              ?.textLargeBold(DesignColor.white)
+                              .marginTop(16)
+                              .marginDown(16) ??
+                          state.userModel?.phoneNumber
+                              .textLargeBold(DesignColor.white)
+                              .marginTop(8)
+                              .marginDown(16) ??
+                          Container().marginTop(8)
                     ],
                   ).paddingAll(16),
                 ),

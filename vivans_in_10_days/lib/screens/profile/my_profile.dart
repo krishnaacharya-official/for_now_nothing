@@ -1,5 +1,6 @@
 // ignore_for_file: slash_for_doc_comments
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -43,6 +44,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
   @override
   void initState() {
     super.initState();
+
     userCubit = BlocProvider.of<UserCubit>(context);
     _userState = userCubit.state;
     print(
@@ -51,6 +53,8 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
     dateOfBirthController = TextEditingController();
     phoneNumberController = TextEditingController();
     mailAddressController = TextEditingController();
+    phoneNumberController?.text =
+        FirebaseAuth.instance.currentUser?.phoneNumber ?? "";
     if (_userState.userModel != null) {
       print("I am building");
       print("user is ${_userState.userModel.toString()}");

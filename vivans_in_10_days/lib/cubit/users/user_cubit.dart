@@ -46,10 +46,6 @@ class UserCubit extends Cubit<UserState> {
   }
 
   Future<void> addUpdateUser({required UserModel userModel}) async {
-    // print("I am inside this add sample");
-    print("State of usermodel is ${state.userModel}");
-    // emit(UserSideLoadingState());
-    // print("State is ${state.sampleModel!}");
     emit(UserButtonLoadingState());
     _firestore
         .collection('users')

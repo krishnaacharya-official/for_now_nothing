@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:vivans_in_10_days/app_routes.dart';
 import 'package:vivans_in_10_days/cubit/users/user_cubit.dart';
 import 'package:vivans_in_10_days/cubit/users/user_state.dart';
 import 'package:vivans_in_10_days/design_system/colors.dart';
@@ -41,16 +40,27 @@ class _AddAddressState extends State<AddAddress> {
 
   List<bool> _isSelected = [true, false];
   bool get editMode => widget.address != null;
+  late UserCubit userCubit;
+  late UserState _userState;
   @override
   void initState() {
+    super.initState();
     if (widget.address != null) {
       print("Address is ${widget.address?.id}");
     }
+
     fullNameController = TextEditingController();
     phoneNumberController = TextEditingController();
     houseNumberController = TextEditingController();
     roadNameController = TextEditingController();
     cityNameController = TextEditingController();
+    // userCubit = BlocProvider.of<UserCubit>(context);
+    // _userState = userCubit.state;
+    // phoneNumberController?.text =
+    //     FirebaseAuth.instance.currentUser?.phoneNumber ??
+    //         _userState.userModel?.phoneNumber ??
+    //         '';
+    // fullNameController?.text = _userState.userModel?.fullName ?? "";
 
     fullNameController!.text = editMode ? widget.address!.fullName : "";
     phoneNumberController!.text = editMode ? widget.address!.phoneNumber : "";
@@ -63,14 +73,12 @@ class _AddAddressState extends State<AddAddress> {
           ? _isSelected = [true, false]
           : _isSelected = [false, true];
     }
-
-    super.initState();
   }
 
   @override
   void dispose() {
-    _fullNameKey.currentState!.dispose();
     super.dispose();
+    _fullNameKey.currentState?.dispose();
   }
 
   @override
@@ -86,7 +94,8 @@ class _AddAddressState extends State<AddAddress> {
         ),
         body: BlocConsumer<UserCubit, UserState>(listener: (context, state) {
           if (state is UserAddressSaved) {
-            context.goNamed(Routes.addressMine);
+            // context.goNamed(Routes.addressMine);
+            context.pop();
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 behavior: SnackBarBehavior.floating,
                 margin: const EdgeInsets.all(16),
@@ -97,7 +106,8 @@ class _AddAddressState extends State<AddAddress> {
                 duration: const Duration(seconds: 3)));
           }
           if (state is UserAddressUpdated) {
-            context.goNamed(Routes.addressMine);
+            // context.goNamed(Routes.addressMine);
+            context.pop();
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 behavior: SnackBarBehavior.floating,
                 margin: const EdgeInsets.all(16),
