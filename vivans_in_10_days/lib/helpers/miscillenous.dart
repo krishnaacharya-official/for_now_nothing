@@ -8,12 +8,14 @@ enum ButtonType { outline, filled }
 class NoDataHelper extends StatelessWidget {
   IconData iconData;
   String title;
+  String? subtitle;
   ButtonType buttonType;
   String buttonTitle;
   Function onTap;
   NoDataHelper({
     super.key,
     required this.iconData,
+    this.subtitle,
     required this.title,
     required this.buttonTitle,
     required this.buttonType,
@@ -43,7 +45,10 @@ class NoDataHelper extends StatelessWidget {
                 ),
               ),
             ).marginDown(32),
-            "No Address".textLargeBold().marginDown(32),
+            title.textLargeBold().marginDown(32),
+            subtitle != null
+                ? subtitle!.textMediumRegular().marginDown(32)
+                : Container(),
             SizedBox(
               width: MediaQuery.of(context).size.width / 2,
               child: buttonType == ButtonType.outline

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vivans_in_10_days/cubit/internet_cubit.dart';
+import 'package:vivans_in_10_days/helpers/miscillenous.dart';
 
 void main() {
   runApp(BlocProvider(
@@ -19,17 +20,9 @@ class MyApp extends StatelessWidget {
       listener: (context, state) {
         if (state == ConnectivityState.disconnected) {
           _isDialogDisplayed = true;
-          showDialog(
-            context: context,
-            builder: (context) => const AlertDialog(
-              title: Text('No Internet'),
-              content: Text('Please check your internet connection.'),
-            ),
-          );
         }
         if (state == ConnectivityState.connected &&
             _isDialogDisplayed == true) {
-          Navigator.of(context).pop();
           _isDialogDisplayed = false;
         }
       },
@@ -38,13 +31,25 @@ class MyApp extends StatelessWidget {
           return const Scaffold(
               body: CircularProgressIndicator()); // These can be same
         }
-        return state == ConnectivityState.connected
-            ? const MaterialApp(
-                home: Scaffold(body: Text("Hello there")),
+        return _isDialogDisplayed
+            ? Scaffold(
+                body: NoDataHelper(
+                    title: "No Connection",
+                    subtitle:
+                        "Please check your internet connection and try again",
+                    buttonTitle: "Retry",
+                    buttonType: ButtonType.filled,
+                    iconData: Icons.wifi_off_rounded,
+                    onTap: () {}),
               )
-            : const Scaffold(
-                body: Center(
-                    child: CircularProgressIndicator())); // These can be same
+            : state == ConnectivityState.connected
+                ? const MaterialApp(
+                    home: Scaffold(body: Text("Hello there")),
+                  )
+                : const Scaffold(
+                    body: Center(
+                        child:
+                            CircularProgressIndicator())); // These can be same
       },
     );
   }
