@@ -93,7 +93,7 @@ class _AddAddressState extends State<AddAddress> {
               icon: const Icon(Icons.navigate_before)),
         ),
         body: BlocConsumer<UserCubit, UserState>(listener: (context, state) {
-          if (state is UserAddressSaved) {
+          if (state is UserAddressSavedUpdated) {
             // context.goNamed(Routes.addressMine);
             context.pop();
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -102,19 +102,9 @@ class _AddAddressState extends State<AddAddress> {
                 backgroundColor: DesignColor.green,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10)),
-                content: const Text("Address Saved Succesfully"),
-                duration: const Duration(seconds: 3)));
-          }
-          if (state is UserAddressUpdated) {
-            // context.goNamed(Routes.addressMine);
-            context.pop();
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                behavior: SnackBarBehavior.floating,
-                margin: const EdgeInsets.all(16),
-                backgroundColor: DesignColor.green,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10)),
-                content: const Text("Address Updated Succesfully"),
+                content: editMode
+                    ? const Text("Address Updated Succesfully")
+                    : const Text("Address Saved Succesfully"),
                 duration: const Duration(seconds: 3)));
           }
         }, builder: (context, state) {

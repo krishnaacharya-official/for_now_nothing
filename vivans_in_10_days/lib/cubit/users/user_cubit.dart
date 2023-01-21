@@ -22,8 +22,6 @@ class UserCubit extends Cubit<UserState> {
       event.exists
           ? {
               print("User Exists"),
-              emit(state.copyModel(
-                  userModel: UserModel.fromjson(event.data()!, event.id))),
               emit(UserExists(
                   userModel: UserModel.fromjson(event.data()!, event.id)))
             }
@@ -46,7 +44,7 @@ class UserCubit extends Cubit<UserState> {
   }
 
   Future<void> addUpdateUser({required UserModel userModel}) async {
-    emit(UserButtonLoadingState());
+    emit(UserButtonLoadingState(userModel: state.userModel));
     _firestore
         .collection('users')
         .doc(_currentUser?.uid)
@@ -55,7 +53,7 @@ class UserCubit extends Cubit<UserState> {
   }
 
   Future<void> addAddress({required AddressModel address}) async {
-    emit(UserButtonLoadingState());
+    emit(UserButtonLoadingState(userModel: state.userModel));
     _firestore
         .collection('users')
         .doc(_currentUser?.uid)
@@ -64,13 +62,15 @@ class UserCubit extends Cubit<UserState> {
         .catchError((error) {
       emit(UserException(error: error));
     }).then((value) {
-      emit(UserAddressSaved());
+      emit(UserAddressSavedUpdated(userModel: state.userModel));
     });
   }
 
   Future<void> updateAddress(
       {required AddressModel address, required String addressId}) async {
-    emit(UserButtonLoadingState());
+    print("The state inside the updateAddress is ${state.userModel}");
+    emit(UserButtonLoadingState(userModel: state.userModel));
+    print("The state inside the updateAddress is ${state.userModel}");
     _firestore
         .collection('users')
         .doc(_currentUser?.uid)
@@ -78,14 +78,14 @@ class UserCubit extends Cubit<UserState> {
         .doc(addressId)
         .set(address.toJson())
         .catchError((error) {
-      emit(UserException(error: error));
+      emit(UserException(error: error, userModel: state.userModel));
     }).then((value) {
-      emit(UserAddressUpdated());
+      emit(UserAddressSavedUpdated(userModel: state.userModel));
     });
   }
 
   Future<void> deleteAddress({required String addressId}) async {
-    emit(UserButtonLoadingState());
+    emit(UserButtonLoadingState(userModel: state.userModel));
     _firestore
         .collection('users')
         .doc(_currentUser?.uid)
@@ -93,9 +93,9 @@ class UserCubit extends Cubit<UserState> {
         .doc(addressId)
         .delete()
         .catchError((error) {
-      emit(UserException(error: error));
+      emit(UserException(error: error, userModel: state.userModel));
     }).then((value) {
-      emit(UserAddressUpdated());
+      emit(UserAddressSavedUpdated(userModel: state.userModel));
     });
   }
 
