@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vivans_in_10_days/cubit/auth/auth_cubit.dart';
 import 'package:vivans_in_10_days/cubit/internet_cubit.dart';
+import 'package:vivans_in_10_days/cubit/products/products_cubit.dart';
 import 'package:vivans_in_10_days/cubit/users/user_cubit.dart';
 
 class Providers {
@@ -15,6 +16,10 @@ class Providers {
         ),
         BlocProvider(
           create: (context) => UserCubit(),
+          lazy: false,
+        ),
+        BlocProvider(
+          create: (context) => ProductsCubit(),
           lazy: false,
         )
       ];

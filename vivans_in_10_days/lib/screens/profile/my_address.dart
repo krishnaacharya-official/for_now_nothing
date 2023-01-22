@@ -8,6 +8,7 @@ import 'package:vivans_in_10_days/cubit/users/user_cubit.dart';
 import 'package:vivans_in_10_days/design_system/colors.dart';
 import 'package:vivans_in_10_days/design_system/text.dart';
 import 'package:vivans_in_10_days/helpers/extensions.dart';
+import 'package:vivans_in_10_days/helpers/shimmer_address.dart';
 import 'package:vivans_in_10_days/models/address_model.dart';
 import 'package:vivans_in_10_days/screens/miscellenous/miscillenous.dart';
 
@@ -226,10 +227,7 @@ class _MyAddressState extends State<MyAddress> {
             );
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child:
-                  CircularProgressIndicator(), /**feature: Can give a shimmer  */
-            );
+            return const ShimmerAddress();
           }
           return NoDataHelper(
               iconData: Icons.location_off_outlined,

@@ -38,7 +38,6 @@ class UserModel extends Equatable {
 
   @override
   String toString() {
-    // TODO: implement toString
     return "avatar $avatar \n fullName $fullName \n dob $dob \n email $email\n phone $phoneNumber ";
   }
 }

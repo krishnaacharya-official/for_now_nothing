@@ -1,9 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vivans_in_10_days/cubit/products/products_cubit.dart';
 import 'package:vivans_in_10_days/design_system/colors.dart';
 import 'package:vivans_in_10_days/design_system/text.dart';
 import 'package:vivans_in_10_days/helpers/extensions.dart';
+import 'package:vivans_in_10_days/helpers/shimmer_home.dart';
 import 'package:vivans_in_10_days/helpers/widgets/product_tile_home.dart';
+import 'package:vivans_in_10_days/models/products_main_model.dart';
 import 'package:vivans_in_10_days/screens/home/nav_bar.dart';
 import 'package:vivans_in_10_days/screens/home/search_screen.dart';
 
@@ -57,118 +61,118 @@ class _HomeState extends State<Home> {
           )
         ],
       ),
-      body: "Hello".textLargeBold(),
-      // body: BlocBuilder<ProductsCubit, ProductsState>(
-      //   builder: (context, state) {
-      //     if (state is ProductsLoading) {
-      //       return const ShimmerHome();
-      //     }
-      //     List<dynamic>? homeSpecialList = state.homeSpecialModel;
-      //     List<dynamic>? homeMainList = state.homeMainModel;
-      //     HomeMainModel homeSpecialModel = homeSpecialList?[0];
-      //     HomeMainModel homeMainModel = homeMainList?[0];
-      //     // debugPrint(homeSpecialModel.image.url);
-      //     return CachedNetworkImage(
-      //         imageUrl: homeMainModel.image.url,
-      //         placeholder: (context, url) => const ShimmerHome(),
-      //         imageBuilder: (context, imageProvider) {
-      //           return ListView(children: [
-      //             headRow("Special Offers")
-      //                 .marginDown()
-      //                 .marginTop()
-      //                 .paddingHorizontal(16),
-      //             SizedBox(
-      //               height: specialOfferTileHeight,
-      //               child: ClipRRect(
-      //                 borderRadius: BorderRadius.circular(10),
-      //                 child: CachedNetworkImage(
-      //                     fit: BoxFit.cover,
-      //                     imageUrl: homeSpecialModel.image.url,
-      //                     // placeholder: (context, url) => Shimmer.fromColors(
-      //                     //     baseColor: Colors.grey[300]!,
-      //                     //     highlightColor: Colors.grey[100]!,
-      //                     //     child: Container(
-      //                     //       decoration: BoxDecoration(
-      //                     //           image: const DecorationImage(
-      //                     //               image: AssetImage(
-      //                     //                   'assets/images/miscellenous/image.png')),
-      //                     //           borderRadius: BorderRadius.circular(
-      //                     //             10,
-      //                     //           ),
-      //                     //           color: Colors.grey[300]),
-      //                     //       // height: 16 * 9,
-      //                     //     )),
-      //                     errorWidget: (context, url, error) =>
-      //                         Center(child: Text(error))),
-      //               ),
-      //               // child:
-      //             ).marginDown().paddingHorizontal(16),
-      //             flashSaleWidget(homeMainModel).marginDown(),
-      //             headRow("Categories").paddingHorizontal(16).marginDown(),
-      //             Column(
-      //               children: [
-      //                 Container(
-      //                   margin: const EdgeInsets.only(bottom: 8),
-      //                   child: Row(
-      //                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //                     children: [
-      //                       categoryTile(
-      //                           context,
-      //                           'assets/images/home/designer_cake.png',
-      //                           "Designer Cake"),
-      //                       categoryTile(
-      //                           context,
-      //                           'assets/images/home/flavored_cake.png',
-      //                           "Flavored Cake"),
-      //                     ],
-      //                   ),
-      //                 ),
-      //                 Row(
-      //                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      //                   children: [
-      //                     categoryTile(
-      //                         context,
-      //                         'assets/images/home/party_cake.png',
-      //                         "Party Cake"),
-      //                     categoryTile(context, 'assets/images/home/snacks.png',
-      //                         "Snacks"),
-      //                   ],
-      //                 )
-      //               ],
-      //             ).paddingHorizontal(16).marginDown(),
-      //             BlocBuilder<ProductsCubit, ProductsState>(
-      //                 builder: (context, state) {
-      //               if (state is ProductHomeMainLoading) {
-      //                 return const Center(
-      //                   child: CircularProgressIndicator(),
-      //                 );
-      //               }
-      //               if (state is ProductMainLoaded) {
-      //                 return buildHomeSection(state.homeMainModel!);
-      //               }
-      //               /**alert: Correct this */
+      // body: const ShimmerAddress()
+      body: BlocBuilder<ProductsCubit, ProductsState>(
+        builder: (context, state) {
+          if (state is ProductsLoading) {
+            return const ShimmerHome();
+          }
+          List<dynamic>? homeSpecialProducts = state.homeSpecialProducts;
+          List<dynamic>? homeCategoryProducts = state.homeCategoryProducts;
+          HomeProductModel homeSpecialModel = homeSpecialProducts?[0];
+          HomeProductModel homeMainModel = homeCategoryProducts?[0];
+          // debugPrint(homeSpecialModel.image.url);
+          return CachedNetworkImage(
+              imageUrl: homeMainModel.image.url,
+              placeholder: (context, url) => const ShimmerHome(),
+              imageBuilder: (context, imageProvider) {
+                return ListView(children: [
+                  headRow("Special Offers")
+                      .marginDown()
+                      .marginTop()
+                      .paddingHorizontal(16),
+                  SizedBox(
+                    height: specialOfferTileHeight,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: CachedNetworkImage(
+                          fit: BoxFit.cover,
+                          imageUrl: homeSpecialModel.image.url,
+                          // placeholder: (context, url) => Shimmer.fromColors(
+                          //     baseColor: Colors.grey[300]!,
+                          //     highlightColor: Colors.grey[100]!,
+                          //     child: Container(
+                          //       decoration: BoxDecoration(
+                          //           image: const DecorationImage(
+                          //               image: AssetImage(
+                          //                   'assets/images/miscellenous/image.png')),
+                          //           borderRadius: BorderRadius.circular(
+                          //             10,
+                          //           ),
+                          //           color: Colors.grey[300]),
+                          //       // height: 16 * 9,
+                          //     )),
+                          errorWidget: (context, url, error) =>
+                              Center(child: Text(error))),
+                    ),
+                    // child:
+                  ).marginDown().paddingHorizontal(16),
+                  flashSaleWidget(homeMainModel).marginDown(),
+                  headRow("Categories").paddingHorizontal(16).marginDown(),
+                  Column(
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.only(bottom: 8),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            categoryTile(
+                                context,
+                                'assets/images/home/designer_cake.png',
+                                "Designer Cake"),
+                            categoryTile(
+                                context,
+                                'assets/images/home/flavored_cake.png',
+                                "Flavored Cake"),
+                          ],
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          categoryTile(
+                              context,
+                              'assets/images/home/party_cake.png',
+                              "Party Cake"),
+                          categoryTile(context, 'assets/images/home/snacks.png',
+                              "Snacks"),
+                        ],
+                      )
+                    ],
+                  ).paddingHorizontal(16).marginDown(),
+                  BlocBuilder<ProductsCubit, ProductsState>(
+                      builder: (context, state) {
+                    if (state is ProductHomeMainLoading) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    if (state is ProductMainLoaded) {
+                      return buildHomeSection(state.homeCategoryProducts!);
+                    }
+                    /**alert: Correct this */
 
-      //               return "HOi".textLargeBold();
-      //             })
-      //             // headRow("Recommended for you 😍").paddingHorizontal(16).marginDown(),
-      //             // SizedBox(
-      //             //   height: productTileHeight,
-      //             //   child: productsListHorizontal(),
-      //             // ).marginLeft(16).marginDown(),
-      //             // headRow("Best Selling Cakes 🍰").marginLeftRight(16).marginDown(),
-      //             // SizedBox(
-      //             //   height: productTileHeight,
-      //             //   child: productsListHorizontal(),
-      //             // ).marginLeft(16).marginDown(),
-      //             // headRow("Trending Cakes 😍").marginLeftRight(16).marginDown(),
-      //             // SizedBox(
-      //             //   height: productTileHeight,
-      //             //   child: productsListHorizontal(),
-      //             // ).marginLeft(16).marginDown(),
-      //           ]);
-      //         });
-      //   },
-      // ),
+                    return "HOi".textLargeBold();
+                  })
+                  // headRow("Recommended for you 😍").paddingHorizontal(16).marginDown(),
+                  // SizedBox(
+                  //   height: productTileHeight,
+                  //   child: productsListHorizontal(),
+                  // ).marginLeft(16).marginDown(),
+                  // headRow("Best Selling Cakes 🍰").marginLeftRight(16).marginDown(),
+                  // SizedBox(
+                  //   height: productTileHeight,
+                  //   child: productsListHorizontal(),
+                  // ).marginLeft(16).marginDown(),
+                  // headRow("Trending Cakes 😍").marginLeftRight(16).marginDown(),
+                  // SizedBox(
+                  //   height: productTileHeight,
+                  //   child: productsListHorizontal(),
+                  // ).marginLeft(16).marginDown(),
+                ]);
+              });
+        },
+      ),
     );
   }
 
@@ -284,40 +288,40 @@ class _HomeState extends State<Home> {
     );
   }
 
-  // Widget flashSaleWidget(HomeMainModel homeMainModel) {
-  //   return Container(
-  //     padding: const EdgeInsets.only(top: 16, bottom: 16, left: 16),
-  //     decoration: BoxDecoration(
-  //         gradient: LinearGradient(
-  //       begin: const Alignment(-1.548, -2.134),
-  //       end: const Alignment(1.548, 3.607),
-  //       colors: [DesignColor.greenGradientStart, DesignColor.greenGradientEnd],
-  //       stops: const <double>[0, 1],
-  //     )),
-  //     // height: flashSaleHeight,
-  //     child: Column(children: [
-  //       headRow("Flash Sale", DesignColor.black).marginDown().marginRight(),
-  //       Container(
-  //           padding: const EdgeInsets.only(bottom: 8),
-  //           child: SizedBox(
-  //             height: flashSaleTileHeight,
-  //             child: ListView.builder(
-  //               itemCount: homeMainModel.products.length,
-  //               scrollDirection: Axis.horizontal,
-  //               itemBuilder: (context, index) {
-  //                 return flashSaleTile(
-  //                         image: homeMainModel.products[index].images[0].url,
-  //                         discount: homeMainModel
-  //                             .products[index].primaryDiscountedRate
-  //                             ?.toInt(),
-  //                         title: homeMainModel.products[index].name)
-  //                     .marginRight(8);
-  //               },
-  //             ),
-  //           ))
-  //     ]),
-  //   );
-  // }
+  Widget flashSaleWidget(HomeProductModel homeMainModel) {
+    return Container(
+      padding: const EdgeInsets.only(top: 16, bottom: 16, left: 16),
+      decoration: BoxDecoration(
+          gradient: LinearGradient(
+        begin: const Alignment(-1.548, -2.134),
+        end: const Alignment(1.548, 3.607),
+        colors: [DesignColor.greenGradientStart, DesignColor.greenGradientEnd],
+        stops: const <double>[0, 1],
+      )),
+      // height: flashSaleHeight,
+      child: Column(children: [
+        headRow("Flash Sale", DesignColor.black).marginDown().marginRight(),
+        Container(
+            padding: const EdgeInsets.only(bottom: 8),
+            child: SizedBox(
+              height: flashSaleTileHeight,
+              child: ListView.builder(
+                itemCount: homeMainModel.products.length,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  return flashSaleTile(
+                          image: homeMainModel.products[index].images[0].url,
+                          discount: homeMainModel
+                              .products[index].primaryDiscountedRate
+                              ?.toInt(),
+                          title: homeMainModel.products[index].name)
+                      .marginRight(8);
+                },
+              ),
+            ))
+      ]),
+    );
+  }
 
   /// alert: check if the discount is null or ""
 
@@ -433,20 +437,20 @@ class _HomeState extends State<Home> {
   }
 }
 
-// /// alert : lookUp the porducts and get it
-// Widget buildHomeSection(List<dynamic> products) {
-//   return SizedBox(
-//     height: 240,
-//     child: ListView.builder(
-//       scrollDirection: Axis.horizontal,
-//       itemCount: products.length,
-//       itemBuilder: (context, index) {
-//         HomeMainModel productModel = products[index];
+// /// alert : lookUp the products and get it
+Widget buildHomeSection(List<dynamic> products) {
+  return SizedBox(
+    height: 240,
+    child: ListView.builder(
+      scrollDirection: Axis.horizontal,
+      itemCount: products.length,
+      itemBuilder: (context, index) {
+        HomeProductModel productModel = products[index];
 
-//         return Container(
-//           child: Text(productModel.products.toString()),
-//         );
-//       },
-//     ),
-//   );
-// }
+        return Container(
+          child: Text(productModel.products.toString()),
+        );
+      },
+    ),
+  );
+}
