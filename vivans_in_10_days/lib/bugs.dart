@@ -26,3 +26,10 @@
  * Check that every line if extended how it looks it shouldn't overflow
  * Or it shouldn't look crazy the address screen 
  */
+/**
+ * See all the sizes if it doesn't overflow, 
+ * products for example the layout does it scale good in every screen
+ * If not make it responsive for all the devices, but you should see there
+ * should not be any chances of having a overflow error, nothing should be 
+ * hardly coded for that to happen.
+ */

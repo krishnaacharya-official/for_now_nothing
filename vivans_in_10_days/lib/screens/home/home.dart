@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:vivans_in_10_days/cubit/products/products_cubit.dart';
 import 'package:vivans_in_10_days/design_system/colors.dart';
 import 'package:vivans_in_10_days/design_system/text.dart';
@@ -37,143 +38,164 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: DesignColor.grey,
-      drawer: const NavBar(),
-      appBar: AppBar(
-        title: "Home".appBarText(),
-        leading: Builder(builder: (context) {
-          return IconButton(
-            icon: const Icon(Icons.menu),
-            onPressed: () {
-              Scaffold.of(context).openDrawer();
-            },
-          );
-        }),
-        actions: [
-          IconButton(
-              icon: const Icon(Icons.search_rounded),
+        backgroundColor: DesignColor.grey,
+        drawer: const NavBar(),
+        appBar: AppBar(
+          title: "Home".appBarText(),
+          leading: Builder(builder: (context) {
+            return IconButton(
+              icon: const Icon(Icons.menu),
               onPressed: () {
-                showSearch(context: context, delegate: SearchScreenDelegate());
-              }),
-          IconButton(
-            icon: const Icon(Icons.shopping_cart_rounded),
-            onPressed: () {},
-          )
-        ],
-      ),
-      // body: const ShimmerAddress()
-      body: BlocBuilder<ProductsCubit, ProductsState>(
-        builder: (context, state) {
+                Scaffold.of(context).openDrawer();
+              },
+            );
+          }),
+          actions: [
+            IconButton(
+                icon: const Icon(Icons.search_rounded),
+                onPressed: () {
+                  showSearch(
+                      context: context, delegate: SearchScreenDelegate());
+                }),
+            IconButton(
+              icon: const Icon(Icons.shopping_cart_rounded),
+              onPressed: () {},
+            )
+          ],
+        ),
+        // body: const ShimmerAddress()
+        body: BlocBuilder<ProductsCubit, ProductsState>(
+            builder: (context, state) {
           if (state is ProductsLoading) {
             return const ShimmerHome();
           }
           List<dynamic>? homeSpecialProducts = state.homeSpecialProducts;
           List<dynamic>? homeCategoryProducts = state.homeCategoryProducts;
-          HomeProductModel homeSpecialModel = homeSpecialProducts?[0];
-          HomeProductModel homeMainModel = homeCategoryProducts?[0];
+          HomeProductModel homeSpecialPrimary = homeSpecialProducts?[0];
+          HomeProductModel homeCategoryPrimary = homeCategoryProducts?[0];
           // debugPrint(homeSpecialModel.image.url);
-          return CachedNetworkImage(
-              imageUrl: homeMainModel.image.url,
-              placeholder: (context, url) => const ShimmerHome(),
-              imageBuilder: (context, imageProvider) {
-                return ListView(children: [
-                  headRow("Special Offers")
-                      .marginDown()
-                      .marginTop()
-                      .paddingHorizontal(16),
-                  SizedBox(
-                    height: specialOfferTileHeight,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: CachedNetworkImage(
-                          fit: BoxFit.cover,
-                          imageUrl: homeSpecialModel.image.url,
-                          // placeholder: (context, url) => Shimmer.fromColors(
-                          //     baseColor: Colors.grey[300]!,
-                          //     highlightColor: Colors.grey[100]!,
-                          //     child: Container(
-                          //       decoration: BoxDecoration(
-                          //           image: const DecorationImage(
-                          //               image: AssetImage(
-                          //                   'assets/images/miscellenous/image.png')),
-                          //           borderRadius: BorderRadius.circular(
-                          //             10,
-                          //           ),
-                          //           color: Colors.grey[300]),
-                          //       // height: 16 * 9,
-                          //     )),
-                          errorWidget: (context, url, error) =>
-                              Center(child: Text(error))),
-                    ),
-                    // child:
-                  ).marginDown().paddingHorizontal(16),
-                  flashSaleWidget(homeMainModel).marginDown(),
-                  headRow("Categories").paddingHorizontal(16).marginDown(),
-                  Column(
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.only(bottom: 8),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            categoryTile(
-                                context,
-                                'assets/images/home/designer_cake.png',
-                                "Designer Cake"),
-                            categoryTile(
-                                context,
-                                'assets/images/home/flavored_cake.png',
-                                "Flavored Cake"),
-                          ],
-                        ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          categoryTile(
-                              context,
-                              'assets/images/home/party_cake.png',
-                              "Party Cake"),
-                          categoryTile(context, 'assets/images/home/snacks.png',
-                              "Snacks"),
-                        ],
-                      )
-                    ],
-                  ).paddingHorizontal(16).marginDown(),
-                  BlocBuilder<ProductsCubit, ProductsState>(
-                      builder: (context, state) {
-                    if (state is ProductHomeMainLoading) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-                    if (state is ProductMainLoaded) {
-                      return buildHomeSection(state.homeCategoryProducts!);
-                    }
-                    /**alert: Correct this */
+          return ListView(children: [
+            headRow("Special Offers")
+                .marginDown()
+                .marginTop()
+                .paddingHorizontal(16),
+            SizedBox(
+              height: specialOfferTileHeight,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                // child: Container(
+                //     color: Colors.grey.shade400,
+                //     child: SvgPicture.asset(
+                //       'assets/svg/placeholder.svg',
+                //       color: Colors.grey.shade600,
+                //     )),
 
-                    return "HOi".textLargeBold();
-                  })
-                  // headRow("Recommended for you 😍").paddingHorizontal(16).marginDown(),
-                  // SizedBox(
-                  //   height: productTileHeight,
-                  //   child: productsListHorizontal(),
-                  // ).marginLeft(16).marginDown(),
-                  // headRow("Best Selling Cakes 🍰").marginLeftRight(16).marginDown(),
-                  // SizedBox(
-                  //   height: productTileHeight,
-                  //   child: productsListHorizontal(),
-                  // ).marginLeft(16).marginDown(),
-                  // headRow("Trending Cakes 😍").marginLeftRight(16).marginDown(),
-                  // SizedBox(
-                  //   height: productTileHeight,
-                  //   child: productsListHorizontal(),
-                  // ).marginLeft(16).marginDown(),
-                ]);
-              });
-        },
-      ),
-    );
+                // child: Shimmer.fromColors(
+                //   // baseColor: Colors.grey[300]!,
+                //   baseColor: Colors.grey.shade500,
+                //   highlightColor: Colors.grey[100]!,
+                //   child: Container(
+                //     color: Colors.black.withOpacity(0.4),
+                //     child: SvgPicture.asset(
+                //       'assets/svg/placeholder.svg',
+                //       color: Colors.black,
+                //       fit: BoxFit.fitHeight,
+                //     ),
+                //   ),
+                // )
+
+                child: CachedNetworkImage(
+                    fit: BoxFit.cover,
+                    imageUrl: homeSpecialPrimary.image.url,
+                    // placeholder: (context, url) => Shimmer.fromColors(
+                    //       // baseColor: Colors.grey[300]!,
+                    //       baseColor: Colors.grey.shade500,
+                    //       highlightColor: Colors.grey[100]!,
+                    //       child: Container(
+                    //         color: Colors.black.withOpacity(0.4),
+                    //         child: SvgPicture.asset(
+                    //           'assets/svg/placeholder.svg',
+                    //           color: Colors.black,
+                    //           fit: BoxFit.fitHeight,
+                    //         ),
+                    //       ),
+                    //     ),
+                    placeholder: (context, url) {
+                      return Container(
+                          color: Colors.grey.shade400,
+                          child: SvgPicture.asset(
+                            'assets/svg/placeholder.svg',
+                            color: Colors.grey.shade600,
+                          ));
+                    },
+                    /**alert: This can't be same in the production, error can't be shown in the image  */
+                    errorWidget: (context, url, error) =>
+                        Center(child: Text(error))),
+              ),
+              // child:
+            ).marginDown().paddingHorizontal(16),
+            flashSaleWidget(homeCategoryPrimary).marginDown(),
+            headRow("Categories").paddingHorizontal(16).marginDown(),
+            Column(
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(bottom: 8),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      categoryTile(
+                          context,
+                          'assets/images/home/designer_cake.png',
+                          "Designer Cake"),
+                      categoryTile(
+                          context,
+                          'assets/images/home/flavored_cake.png',
+                          "Flavored Cake"),
+                    ],
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    categoryTile(context, 'assets/images/home/party_cake.png',
+                        "Party Cake"),
+                    categoryTile(
+                        context, 'assets/images/home/snacks.png', "Snacks"),
+                  ],
+                )
+              ],
+            ).paddingHorizontal(16).marginDown(),
+            BlocBuilder<ProductsCubit, ProductsState>(
+                builder: (context, state) {
+              if (state is ProductHomeMainLoading) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              if (state is ProductMainLoaded) {
+                return buildHomeSection(state.homeCategoryProducts!);
+              }
+              /**alert: Correct this */
+
+              return "HOi".textLargeBold();
+            })
+            // headRow("Recommended for you 😍").paddingHorizontal(16).marginDown(),
+            // SizedBox(
+            //   height: productTileHeight,
+            //   child: productsListHorizontal(),
+            // ).marginLeft(16).marginDown(),
+            // headRow("Best Selling Cakes 🍰").marginLeftRight(16).marginDown(),
+            // SizedBox(
+            //   height: productTileHeight,
+            //   child: productsListHorizontal(),
+            // ).marginLeft(16).marginDown(),
+            // headRow("Trending Cakes 😍").marginLeftRight(16).marginDown(),
+            // SizedBox(
+            //   height: productTileHeight,
+            //   child: productsListHorizontal(),
+            // ).marginLeft(16).marginDown(),
+          ]);
+        }));
   }
 
   ListView productsListHorizontal() {
@@ -371,55 +393,78 @@ class _HomeState extends State<Home> {
       width: flashSaleTileWidth,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(10),
-        child: Stack(
-          children: [
-            CachedNetworkImage(
-              fadeInDuration: const Duration(milliseconds: 500),
-              imageUrl: image,
-              height: double.infinity,
-              fit: BoxFit.cover,
-              imageBuilder: (context, imageProvider) => Stack(children: [
-                Container(
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: imageProvider, fit: BoxFit.cover))),
-                Container(
-                  color: Colors.black.withOpacity(0.4),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 2.0, bottom: 2),
-                  child: Align(
-                      alignment: Alignment.bottomLeft,
-                      child: title.textLargeRegular(DesignColor.white)),
-                ),
-                Visibility(
-                  visible: discount != 0,
-                  child: Align(
-                    alignment: Alignment.topRight,
-                    child: Container(
-                      margin: const EdgeInsets.only(top: 2, right: 2),
-                      padding: const EdgeInsets.all(2),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        gradient: const LinearGradient(
-                          begin: Alignment(-1.238, -1.313),
-                          end: Alignment(3.464, 3.196),
-                          colors: <Color>[
-                            Color(0xfff9d423),
-                            Color(0xfffc8e3a),
-                            Color(0xffff4e50)
-                          ],
-                          stops: <double>[0.038, 0.5, 0.928],
-                        ),
-                      ),
-                      child: Text("$discount%"),
+        child: CachedNetworkImage(
+          // fadeInDuration: const Duration(milliseconds: 500),
+          imageUrl: image,
+          // placeholder: (context, url) => Shimmer.fromColors(
+          //   // baseColor: Colors.grey[300]!,
+          //   baseColor: Colors.grey.shade500,
+          //   highlightColor: Colors.grey[100]!,
+          //   child: Container(
+          //     color: Colors.black.withOpacity(0.4),
+          //     child: SvgPicture.asset(
+          //       'assets/svg/placeholder.svg',
+          //       color: Colors.black,
+          //       fit: BoxFit.contain,
+          //     ),
+          //   ),
+          // ),
+          placeholder: (context, url) {
+            return Container(
+                color: Colors.grey.shade200,
+                child: SizedBox(
+                  width: double.infinity / 2,
+                  height: double.infinity / 2,
+                  child: SvgPicture.asset(
+                    'assets/svg/placeholder.svg',
+                    height: 24,
+                    width: 24,
+                    color: Colors.grey.shade400,
+                  ),
+                ));
+          },
+          height: double.infinity,
+          fit: BoxFit.cover,
+          imageBuilder: (context, imageProvider) => Stack(children: [
+            Container(
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: imageProvider, fit: BoxFit.cover))),
+            Container(
+              color: Colors.black.withOpacity(0.4),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 2.0, bottom: 2),
+              child: Align(
+                  alignment: Alignment.bottomLeft,
+                  child: title.textLargeRegular(DesignColor.white)),
+            ),
+            Visibility(
+              visible: discount != 0,
+              child: Align(
+                alignment: Alignment.topRight,
+                child: Container(
+                  margin: const EdgeInsets.only(top: 2, right: 2),
+                  padding: const EdgeInsets.all(2),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    gradient: const LinearGradient(
+                      begin: Alignment(-1.238, -1.313),
+                      end: Alignment(3.464, 3.196),
+                      colors: <Color>[
+                        Color(0xfff9d423),
+                        Color(0xfffc8e3a),
+                        Color(0xffff4e50)
+                      ],
+                      stops: <double>[0.038, 0.5, 0.928],
                     ),
                   ),
-                )
-              ]),
-              // color: Colors.black.withOpacity(.4),
-            ),
-          ],
+                  child: Text("$discount%"),
+                ),
+              ),
+            )
+          ]),
+          // color: Colors.black.withOpacity(.4),
         ),
       ),
     );

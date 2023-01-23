@@ -32,6 +32,7 @@ class ApiRepository {
     }
     /**bug: You need to handle if timeout is reached saying sorry we are not able to reach you  , retry! in the UI 
      * and off to on internet state should also should check products */
+    /**And then we should have retry button, where it should retry to fetch products */
   }
 
   Future<List<dynamic>> fetchHomeCategoryProducts() async {
