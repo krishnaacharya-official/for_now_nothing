@@ -15,11 +15,17 @@ class ProductsCubit extends Cubit<ProductsState> {
 
   void init() async {
     emit(ProductsLoading());
-    var homeCategoryProducts = await apiRepository.fetchHomeCategoryProducts();
-    var homeSpecialProducts = await apiRepository.fetchHomeSpecialProducts();
-    emit(state.copyWith(
-        homeCategoryProducts: homeCategoryProducts,
-        homeSpecialProducts: homeSpecialProducts));
+    try {
+      var homeCategoryProducts =
+          await apiRepository.fetchHomeCategoryProducts();
+      var homeSpecialProducts = await apiRepository.fetchHomeSpecialProducts();
+      emit(state.copyWith(
+          homeCategoryProducts: homeCategoryProducts,
+          homeSpecialProducts: homeSpecialProducts));
+    } catch (e) {
+      emit(ProductsErrorState(e.toString()));
+    }
+
     /**alert: errors should be handled here and accrodingly error message should be put */
   }
 

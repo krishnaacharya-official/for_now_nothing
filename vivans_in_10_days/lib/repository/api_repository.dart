@@ -7,6 +7,7 @@ import 'package:vivans_in_10_days/models/products_main_model.dart';
 
 class ApiRepository {
   // static const baseUrl = "http://10.0.2.2:8000";
+
   static const baseUrl = "http://localhost:8000";
   Future<List<dynamic>> fetchProducts() async {
     try {

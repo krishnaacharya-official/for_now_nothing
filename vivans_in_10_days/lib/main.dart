@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vivans_in_10_days/cubit/internet_cubit.dart';
+import 'package:vivans_in_10_days/cubit/products/products_cubit.dart';
 import 'package:vivans_in_10_days/helpers/custom_theme.dart';
 import 'package:vivans_in_10_days/helpers/miscillenous.dart';
 import 'package:vivans_in_10_days/helpers/providers.dart';
@@ -23,6 +24,7 @@ void main() async {
           }
           if (state == ConnectivityState.connected &&
               isDialogDisplayed == true) {
+            BlocProvider.of<ProductsCubit>(context).init();
             isDialogDisplayed = false;
           }
         }, builder: (context, state) {
