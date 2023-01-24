@@ -25,6 +25,7 @@ import 'package:vivans_in_10_days/screens/home/cart_screen.dart';
 import 'package:vivans_in_10_days/screens/home/categories_all.dart';
 import 'package:vivans_in_10_days/screens/home/categories_screen.dart';
 import 'package:vivans_in_10_days/screens/home/details_screen.dart';
+import 'package:vivans_in_10_days/screens/home/filter_screen.dart';
 import 'package:vivans_in_10_days/screens/home/home.dart';
 import 'package:vivans_in_10_days/screens/home/home_product_list.dart';
 import 'package:vivans_in_10_days/screens/home/special_offers_all.dart';
@@ -46,7 +47,7 @@ final GoRouter router = GoRouter(initialLocation: '/', routes: [
           if (state is AuthLoggedInState) {
             return const MainHomeScreen();
 
-            // return  HomeProductsList();
+            // return const FilterScreen();
           } else {
             return SignIn();
           }
@@ -133,6 +134,11 @@ final GoRouter router = GoRouter(initialLocation: '/', routes: [
         String? title = state.queryParams['name'];
         CategoryList category = state.extra as CategoryList;
         return CategoriesScreen(category: category, title: title);
-      })
+      }),
+  GoRoute(
+    path: '/filter',
+    name: Routes.filter,
+    builder: (context, state) => const FilterScreen(),
+  )
   // GoRoute(path: '/detailedCategory')
 ]);

@@ -18,4 +18,6 @@ class Routes {
   static var categoryAll = "categoryAll";
 
   static var category = "category";
+
+  static var filter = "filter";
 }

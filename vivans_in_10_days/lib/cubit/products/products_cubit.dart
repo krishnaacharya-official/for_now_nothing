@@ -29,9 +29,8 @@ class ProductsCubit extends Cubit<ProductsState> {
   }
 
   void fetchCategoryProducts(String category) async {
-    print("State is {$state}");
+    print("I am inside fetchCategoryProducts");
     emit(ProductsLoading(productState: state));
-    print("State is {$state}");
     try {
       var productsByCategory =
           await apiRepository.fetchProductsByCategory(category);
@@ -42,12 +41,23 @@ class ProductsCubit extends Cubit<ProductsState> {
   }
 
   void fetchCategoryProductsAscDesc(String category, bool asc) async {
-    print("State is {$state}");
+    print("I am inside fetchCategoryProductsAscDesc");
     emit(ProductsLoading(productState: state));
-    print("State is {$state}");
     try {
       var productsByCategory =
           await apiRepository.fetchProductsByCategoryAscDesc(category, asc);
+      emit(state.copyWith(mainCategoryProducts: productsByCategory));
+    } catch (e) {
+      emit(ProductsErrorState(e.toString()));
+    }
+  }
+
+  void fetchFilteredProducts(List<Map<String, int>> selectedPriceRange,
+      List<String> selectedTags) async {
+    emit(ProductsLoading(productState: state));
+    try {
+      var productsByCategory = await apiRepository.fetchFilteredProducts(
+          selectedPriceRange, selectedTags);
       emit(state.copyWith(mainCategoryProducts: productsByCategory));
     } catch (e) {
       emit(ProductsErrorState(e.toString()));

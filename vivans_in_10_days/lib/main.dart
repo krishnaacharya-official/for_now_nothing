@@ -1,3 +1,5 @@
+// ignore_for_file: slash_for_doc_comments
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,8 +8,14 @@ import 'package:vivans_in_10_days/cubit/products/products_cubit.dart';
 import 'package:vivans_in_10_days/helpers/custom_theme.dart';
 import 'package:vivans_in_10_days/helpers/miscillenous.dart';
 import 'package:vivans_in_10_days/helpers/providers.dart';
+import 'package:vivans_in_10_days/repository/api_repository.dart';
 import 'package:vivans_in_10_days/router.dart';
 
+/**attention: Stackoverflow
+ * Can ask the following questions
+ * Elegant way of handling global state in cubit
+ * How to start from home screen when the internet is on.
+ */
 // final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,6 +34,7 @@ void main() async {
           if (state == ConnectivityState.connected &&
               isDialogDisplayed == true) {
             BlocProvider.of<ProductsCubit>(context).init();
+            ApiRepository.connect();
             isDialogDisplayed = false;
           }
         }, builder: (context, state) {

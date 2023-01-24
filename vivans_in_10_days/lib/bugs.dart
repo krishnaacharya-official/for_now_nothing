@@ -1,3 +1,15 @@
+/**bug: If you switch of interent and try to refresh in the middle of the screen
+ * lets say inside some category, then it refreshes but the params are lost
+ * So you'll get weird image fails errors in the image widget
+ * You have to redirect to the home page
+ * 
+ * So when this happens and you redirect to the home Page using bakcbutton
+ * the navigation button is puff gayab.
+ */
+/**bugs: Retry will crash the app in any category screen because they need props to be passed which will be null
+ * even if the data is fetched from the internet
+ */
+
 /**bug: When the app is closed the profile screens state doesn't persist and behaves very strangely
  *  with saave button and the avatar as well */
 

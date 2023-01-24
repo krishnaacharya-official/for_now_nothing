@@ -20,7 +20,7 @@ class CategoriesAll extends StatelessWidget {
               /**alert: Make sure instead of using pop you use go to the previous page
                * Because when the internet switches off and on , no navigation stack is preserved
                */
-              context.goNamed(Routes.home);
+              context.goNamed(Routes.homeMain);
             },
             icon: const Icon(Icons.navigate_before)),
       ),

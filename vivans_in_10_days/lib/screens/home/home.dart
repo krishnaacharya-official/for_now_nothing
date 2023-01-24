@@ -167,11 +167,11 @@ class _HomeState extends State<Home> {
                           extra: CategoryList.CATEGORY_OCCASION,
                           queryParams: {'name': "Party Cakes"});
                     }),
-                    categoryTile(
-                        context, 'assets/images/home/snacks.png', "Snacks", () {
+                    categoryTile(context, 'assets/images/home/snacks.png',
+                        "Vivans Special", () {
                       context.pushNamed(Routes.category,
                           extra: CategoryList.CATEGORY_SNACKS,
-                          queryParams: {'name': "Snacks"});
+                          queryParams: {'name': "Vivans Special"});
                     }),
                   ],
                 )
@@ -188,7 +188,9 @@ class _HomeState extends State<Home> {
 
     return ListView.builder(
       scrollDirection: Axis.horizontal,
-      itemCount: homeProductModel.products.length,
+      itemCount: homeProductModel.products.length > 7
+          ? 8
+          : homeProductModel.products.length,
       itemBuilder: (context, index) {
         ProductModel productModel = homeProductModel.products[index];
         return ProductTileHome(
@@ -244,7 +246,7 @@ class _HomeState extends State<Home> {
             child: SizedBox(
               height: flashSaleTileHeight,
               child: ListView.builder(
-                itemCount: homeMainModel.products.length > 5
+                itemCount: homeMainModel.products.length > 7
                     ? 8
                     : homeMainModel.products.length,
                 scrollDirection: Axis.horizontal,
@@ -353,7 +355,6 @@ class _HomeState extends State<Home> {
   }
 
   Widget restWidgetsOfHome(List homeCategoryProducts) {
-    print("The number of products are ${homeCategoryProducts.length}");
     return SizedBox(
       height: (homeCategoryProducts.length - 1) * (productTileHeight + 60),
       child: ListView.builder(

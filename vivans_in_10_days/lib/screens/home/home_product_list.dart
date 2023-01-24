@@ -106,7 +106,7 @@ class _HomeProductsListState extends State<HomeProductsList> {
                * just take care of the internet function.
                */
               // context.pop();
-              context.goNamed(Routes.home);
+              context.goNamed(Routes.homeMain);
             },
             icon: const Icon(Icons.navigate_before)),
         /**alert: work */
