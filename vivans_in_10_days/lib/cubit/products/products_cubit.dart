@@ -40,4 +40,17 @@ class ProductsCubit extends Cubit<ProductsState> {
       emit(ProductsErrorState(e.toString()));
     }
   }
+
+  void fetchCategoryProductsAscDesc(String category, bool asc) async {
+    print("State is {$state}");
+    emit(ProductsLoading(productState: state));
+    print("State is {$state}");
+    try {
+      var productsByCategory =
+          await apiRepository.fetchProductsByCategoryAscDesc(category, asc);
+      emit(state.copyWith(mainCategoryProducts: productsByCategory));
+    } catch (e) {
+      emit(ProductsErrorState(e.toString()));
+    }
+  }
 }

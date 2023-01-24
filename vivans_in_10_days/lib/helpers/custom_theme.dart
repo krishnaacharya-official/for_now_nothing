@@ -11,7 +11,9 @@ class CustomTheme {
         // listTileTheme: ListTileThemeData(selectedColor: DesignColor.blue),
         scaffoldBackgroundColor: DesignColor.grey,
         appBarTheme: AppBarTheme(
-            iconTheme: IconThemeData(color: DesignColor.black),
+            iconTheme: IconThemeData(
+              color: DesignColor.black,
+            ),
             titleSpacing: 0),
         useMaterial3: true,
         fontFamily: 'Poppins',

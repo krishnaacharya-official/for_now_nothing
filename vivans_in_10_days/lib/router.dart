@@ -130,8 +130,9 @@ final GoRouter router = GoRouter(initialLocation: '/', routes: [
       path: '/category',
       name: Routes.category,
       builder: (context, state) {
+        String? title = state.queryParams['name'];
         CategoryList category = state.extra as CategoryList;
-        return CategoriesScreen(category: category);
+        return CategoriesScreen(category: category, title: title);
       })
   // GoRoute(path: '/detailedCategory')
 ]);

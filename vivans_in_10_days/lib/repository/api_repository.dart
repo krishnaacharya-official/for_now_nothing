@@ -88,6 +88,29 @@ class ApiRepository {
       rethrow;
     }
   }
+
+  Future<List<dynamic>> fetchProductsByCategoryAscDesc(
+      String category, bool asc) async {
+    try {
+      final response =
+          await http.get(Uri.parse("$baseUrl/product/$category/$bool"));
+      final productsJson = jsonDecode(response.body)['data'] as List;
+      final products = productsJson
+          .map((productJson) => ProductModel.fromJson(productJson))
+          .toList();
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        print(
+            "Request successful: ${response.statusCode} ${products.toString()}");
+      } else {
+        print("Request failed: ${response.statusCode}");
+      }
+      return products;
+    } on http.ClientException {
+      rethrow;
+    } on Exception {
+      rethrow;
+    }
+  }
 }
 
 // class ApiRepository {

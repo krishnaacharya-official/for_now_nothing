@@ -96,37 +96,42 @@ class _HomeState extends State<Home> {
               context.pushNamed(Routes.specialOffer,
                   extra: homeSpecialProducts);
             }).marginDown().marginTop().paddingHorizontal(16),
-            SizedBox(
-              height: specialOfferTileHeight,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: CachedNetworkImage(
-                    fit: BoxFit.cover,
-                    imageUrl: homeSpecialPrimary.image.url,
-                    placeholder: (context, url) {
-                      return Container(
-                          color: Colors.grey.shade300,
-                          child: FractionallySizedBox(
-                            heightFactor: 0.5,
-                            widthFactor: 0.5,
-                            child: SvgPicture.asset(
-                              'assets/svg/placeholder.svg',
-                              color: Colors.grey.shade600,
-                            ),
-                          ));
-                    },
-                    /**alert: This can't be same in the production, error can't be shown in the image  */
-                    errorWidget: (context, url, error) =>
-                        Center(child: Text(error))),
-              ),
-              // child:
-            ).marginDown().paddingHorizontal(16),
+            InkWell(
+              onTap: () {
+                context.pushNamed(Routes.homeProductList,
+                    extra: homeSpecialPrimary,
+                    queryParams: {'appBarTitle': "Discount Sale"});
+              },
+              child: SizedBox(
+                height: specialOfferTileHeight,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: CachedNetworkImage(
+                      fit: BoxFit.cover,
+                      imageUrl: homeSpecialPrimary.image.url,
+                      placeholder: (context, url) {
+                        return Container(
+                            color: Colors.grey.shade300,
+                            child: FractionallySizedBox(
+                              heightFactor: 0.5,
+                              widthFactor: 0.5,
+                              child: SvgPicture.asset(
+                                'assets/svg/placeholder.svg',
+                                color: Colors.grey.shade600,
+                              ),
+                            ));
+                      },
+                      /**alert: This can't be same in the production, error can't be shown in the image  */
+                      errorWidget: (context, url, error) =>
+                          Center(child: Text(error))),
+                ),
+                // child:
+              ).marginDown().paddingHorizontal(16),
+            ),
             flashSaleWidget(homeCategoryPrimary).marginDown(),
             headRow("Categories", onTap: () {
-              // context.pushNamed(Routes.categoryAll);
-            })
-                .paddingHorizontal(16)
-                .marginDown(),
+              context.pushNamed(Routes.categoryAll);
+            }).paddingHorizontal(16).marginDown(),
             Column(
               children: [
                 Container(
@@ -139,14 +144,16 @@ class _HomeState extends State<Home> {
                           'assets/images/home/designer_cake.png',
                           "Designer Cake", () {
                         context.pushNamed(Routes.category,
-                            extra: CategoryList.CATEGORY_CUSTOM);
+                            extra: CategoryList.CATEGORY_CUSTOM,
+                            queryParams: {'name': "Designer Cakes"});
                       }),
                       categoryTile(
                           context,
                           'assets/images/home/flavored_cake.png',
                           "Flavored Cake", () {
                         context.pushNamed(Routes.category,
-                            extra: CategoryList.CATEGORY_FLAVOUR);
+                            extra: CategoryList.CATEGORY_FLAVOUR,
+                            queryParams: {'name': "Flavored Cakes"});
                       }),
                     ],
                   ),
@@ -157,17 +164,19 @@ class _HomeState extends State<Home> {
                     categoryTile(context, 'assets/images/home/party_cake.png',
                         "Party Cake", () {
                       context.pushNamed(Routes.category,
-                          extra: CategoryList.CATEGORY_OCCASION);
+                          extra: CategoryList.CATEGORY_OCCASION,
+                          queryParams: {'name': "Party Cakes"});
                     }),
                     categoryTile(
                         context, 'assets/images/home/snacks.png', "Snacks", () {
                       context.pushNamed(Routes.category,
-                          extra: CategoryList.CATEGORY_SNACKS);
+                          extra: CategoryList.CATEGORY_SNACKS,
+                          queryParams: {'name': "Snacks"});
                     }),
                   ],
                 )
               ],
-            ).paddingHorizontal(16).marginDown(),
+            ).paddingHorizontal(16),
             // buildHomeSection(state.homeCategoryProducts!),
             restWidgetsOfHome(homeCategoryProducts!)
           ]);
@@ -235,7 +244,9 @@ class _HomeState extends State<Home> {
             child: SizedBox(
               height: flashSaleTileHeight,
               child: ListView.builder(
-                itemCount: homeMainModel.products.length,
+                itemCount: homeMainModel.products.length > 5
+                    ? 8
+                    : homeMainModel.products.length,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
                   return flashSaleTile(
@@ -355,11 +366,11 @@ class _HomeState extends State<Home> {
               context.pushNamed(Routes.homeProductList,
                   extra: homeProductModel,
                   queryParams: {'appBarTitle': homeProductModel.title});
-            }).paddingHorizontal(16).marginDown(),
+            }).paddingHorizontal(16).marginDown().marginTop(),
             SizedBox(
               height: productTileHeight,
               child: productsListHorizontal(homeProductModel),
-            ).marginLeft(16).marginDown(),
+            ).marginLeft(16),
           ]);
         },
       ),

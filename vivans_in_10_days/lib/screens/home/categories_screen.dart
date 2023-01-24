@@ -12,13 +12,63 @@ import 'package:vivans_in_10_days/helpers/widgets/product_tile_category.dart';
 
 class CategoriesScreen extends StatefulWidget {
   CategoryList category;
-  CategoriesScreen({super.key, required this.category});
+  String? title;
+  CategoriesScreen({super.key, required this.category, this.title});
 
   @override
   State<CategoriesScreen> createState() => _CategoriesScreenState();
 }
 
 class _CategoriesScreenState extends State<CategoriesScreen> {
+  void _showModalSheet() {
+    showModalBottomSheet<dynamic>(
+        isScrollControlled: true,
+        context: context,
+        builder: (builder) {
+          String id = "Relevance";
+          return StatefulBuilder(builder: (context, setState) {
+            return Wrap(
+                crossAxisAlignment: WrapCrossAlignment.start,
+                children: [
+                  "Sort by".textLargeBold().marginLeft(8),
+                  RadioListTile(
+                    contentPadding: EdgeInsets.zero,
+                    title: "Relevance".textMediumRegular(),
+                    groupValue: id,
+                    value: "Relevance",
+                    onChanged: (val) {
+                      setState(() {
+                        id = val.toString();
+                      });
+                    },
+                  ),
+                  RadioListTile(
+                    contentPadding: EdgeInsets.zero,
+                    title: "Price- Low to High".textMediumRegular(),
+                    groupValue: id,
+                    value: "Price- Low to High",
+                    onChanged: (val) {
+                      setState(() {
+                        id = val.toString();
+                      });
+                    },
+                  ),
+                  RadioListTile(
+                    contentPadding: EdgeInsets.zero,
+                    title: "Price- High to Low".textMediumRegular(),
+                    groupValue: id,
+                    value: "Price- High to Low",
+                    onChanged: (val) {
+                      setState(() {
+                        id = val.toString();
+                      });
+                    },
+                  )
+                ]).paddingAll(16);
+          });
+        });
+  }
+
   late Size size;
   late double childWidth;
   late double childHeight;
@@ -35,7 +85,8 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
       appBar: AppBar(
         // title: "Recommended For You".appBarText(),
 
-        title: getCategory(widget.category).appBarText(),
+        title: widget.title?.appBarText() ??
+            getCategory(widget.category).appBarText(),
         leading: IconButton(
             onPressed: () {
               /**alert: Make sure instead of using pop you use go to the previous page
@@ -92,6 +143,42 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
             },
           ).paddingAll(16);
         },
+      ),
+      bottomNavigationBar: Material(
+        elevation: 1,
+        child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+          InkWell(
+            onTap: _showModalSheet,
+            child: Container(
+              padding:
+                  const EdgeInsets.only(left: 8, top: 16, bottom: 16, right: 8),
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width / 2 - 16,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(Icons.sort_rounded).marginRight(8),
+                    "Sort".textLargeBold()
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Container(
+            padding:
+                const EdgeInsets.only(top: 16, bottom: 16, left: 8, right: 8),
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width / 2 - 16,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(Icons.filter_list_rounded).marginRight(8),
+                  "Filter".textLargeBold()
+                ],
+              ),
+            ),
+          )
+        ]),
       ),
     );
   }
