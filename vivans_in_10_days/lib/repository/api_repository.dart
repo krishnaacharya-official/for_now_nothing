@@ -6,9 +6,9 @@ import 'package:vivans_in_10_days/models/product_model.dart';
 import 'package:vivans_in_10_days/models/products_main_model.dart';
 
 class ApiRepository {
-  // static const baseUrl = "http://10.0.2.2:8000";
+  static const baseUrl = "http://10.0.2.2:8000";
 
-  static const baseUrl = "http://localhost:8000";
+  // static const baseUrl = "http://localhost:8000";
   Future<List<dynamic>> fetchProducts() async {
     try {
       // Make the GET request
@@ -43,12 +43,7 @@ class ApiRepository {
       final products = productsJson
           .map((productJson) => HomeProductModel.fromJson(productJson))
           .toList();
-      if (response.statusCode >= 200 && response.statusCode < 300) {
-        print(
-            "Request successful: ${response.statusCode} ${products.toString()}");
-      } else {
-        print("Request failed: ${response.statusCode}");
-      }
+
       return products;
     } on http.ClientException {
       rethrow;
@@ -63,6 +58,22 @@ class ApiRepository {
       final productsJson = jsonDecode(response.body)['data']['data'] as List;
       final products = productsJson
           .map((productJson) => HomeProductModel.fromJson(productJson))
+          .toList();
+
+      return products;
+    } on http.ClientException {
+      rethrow;
+    } on Exception {
+      rethrow;
+    }
+  }
+
+  Future<List<dynamic>> fetchProductsByCategory(String category) async {
+    try {
+      final response = await http.get(Uri.parse("$baseUrl/product/$category"));
+      final productsJson = jsonDecode(response.body)['data'] as List;
+      final products = productsJson
+          .map((productJson) => ProductModel.fromJson(productJson))
           .toList();
       if (response.statusCode >= 200 && response.statusCode < 300) {
         print(

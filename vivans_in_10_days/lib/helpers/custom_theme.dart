@@ -10,8 +10,9 @@ class CustomTheme {
             checkColor: MaterialStateProperty.all(DesignColor.white)),
         // listTileTheme: ListTileThemeData(selectedColor: DesignColor.blue),
         scaffoldBackgroundColor: DesignColor.grey,
-        appBarTheme:
-            AppBarTheme(iconTheme: IconThemeData(color: DesignColor.black)),
+        appBarTheme: AppBarTheme(
+            iconTheme: IconThemeData(color: DesignColor.black),
+            titleSpacing: 0),
         useMaterial3: true,
         fontFamily: 'Poppins',
         inputDecorationTheme: InputDecorationTheme(

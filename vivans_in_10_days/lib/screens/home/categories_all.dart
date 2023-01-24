@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:vivans_in_10_days/design_system/text.dart';
 import 'package:vivans_in_10_days/helpers/extensions.dart';
 
-class CategoriesScreen extends StatelessWidget {
-  const CategoriesScreen({super.key});
+class CategoriesAll extends StatelessWidget {
+  const CategoriesAll({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

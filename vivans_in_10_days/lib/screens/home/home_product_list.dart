@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:vivans_in_10_days/app_routes.dart';
 import 'package:vivans_in_10_days/design_system/text.dart';
 import 'package:vivans_in_10_days/helpers/extensions.dart';
 import 'package:vivans_in_10_days/helpers/widgets/product_tile_category.dart';
@@ -104,17 +105,18 @@ class _HomeProductsListState extends State<HomeProductsList> {
                * I can either directly redirect to home page , or pop() 
                * just take care of the internet function.
                */
-              context.pop();
+              // context.pop();
+              context.goNamed(Routes.home);
             },
             icon: const Icon(Icons.navigate_before)),
         /**alert: work */
       ),
       body: GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           mainAxisSpacing: 8.0,
-          crossAxisSpacing: 4.0,
-          childAspectRatio: ((childWidth / childHeight)),
+          crossAxisSpacing: 8.0,
+          // childAspectRatio: ((childWidth / childHeight)),
         ),
         itemCount: widget.homeProductModel.products.length,
         itemBuilder: (context, index) {
@@ -216,7 +218,7 @@ class _HomeProductsListState extends State<HomeProductsList> {
                     ],
                   ),
                 ),
-              ).addWidgetColor(Colors.amber),
+              ),
             ),
             Container(
               padding:
@@ -231,7 +233,7 @@ class _HomeProductsListState extends State<HomeProductsList> {
                   ],
                 ),
               ),
-            ).addWidgetColor(Colors.green)
+            )
           ]),
         ),
       ),

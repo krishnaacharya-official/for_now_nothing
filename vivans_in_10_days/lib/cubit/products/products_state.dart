@@ -4,48 +4,72 @@ part of 'products_cubit.dart';
 class ProductsState extends Equatable {
   final List<dynamic>? homeCategoryProducts;
   final List<dynamic>? homeSpecialProducts;
+  final List<dynamic>? mainCategoryProducts;
   ProductsState copyWith(
       {List<dynamic>? homeCategoryProducts,
-      List<dynamic>? homeSpecialProducts}) {
+      List<dynamic>? homeSpecialProducts,
+      List<dynamic>? mainCategoryProducts}) {
     return ProductsState(
+      mainCategoryProducts: mainCategoryProducts ?? this.mainCategoryProducts,
       homeCategoryProducts: homeCategoryProducts ?? this.homeCategoryProducts,
       homeSpecialProducts: homeSpecialProducts ?? this.homeSpecialProducts,
     );
   }
 
-  const ProductsState({this.homeCategoryProducts, this.homeSpecialProducts});
+  // ProductsState(ProductsState productsState){
+  //   return productsState;
+  // }
+  const ProductsState(
+      {this.homeCategoryProducts,
+      this.homeSpecialProducts,
+      this.mainCategoryProducts});
   @override
   List<Object?> get props => [homeCategoryProducts, homeSpecialProducts];
 }
 
 class ProductsInitial extends ProductsState {}
 
-class ProductsLoading extends ProductsState {}
-
-class ProductsLoadedState extends ProductsState {
-  final List<ProductModel> products;
-  const ProductsLoadedState(this.products);
+class ProductsLoading extends ProductsState {
+  final ProductsState productState;
+  ProductsLoading({required this.productState})
+      : super(
+            homeCategoryProducts: productState.homeCategoryProducts,
+            homeSpecialProducts: productState.homeSpecialProducts,
+            mainCategoryProducts: productState.mainCategoryProducts);
 }
 
-class ProductHomeMainLoading extends ProductsState {}
-
-class ProductMainLoaded extends ProductsState {
-  const ProductMainLoaded({required List<dynamic> homeMainModel})
-      : super(homeCategoryProducts: homeMainModel);
+class ProductsByCategoryLoaded extends ProductsState {
+  final List<dynamic> productModel;
+  ProductsByCategoryLoaded({required this.productModel}) {
+    print(
+        "The product model from inside the ProductsByCategoryLoaded is : $productModel");
+  }
 }
 
-class ProductsHomeSpecialLoading extends ProductsState {}
+// class ProductsLoadedState extends ProductsState {
+//   final List<ProductModel> products;
+//   const ProductsLoadedState(this.products);
+// }
 
-class ProductHomeSpecialLoaded extends ProductsState {
-  @override
-  final List<HomeProductModel> homeSpecialProducts;
-  const ProductHomeSpecialLoaded(this.homeSpecialProducts);
-}
+// class ProductHomeMainLoading extends ProductsState {}
 
-class ProductsLoadedHeyState extends ProductsState {
-  const ProductsLoadedHeyState({required List<dynamic> homeSpecialModel})
-      : super(homeCategoryProducts: homeSpecialModel);
-}
+// class ProductMainLoaded extends ProductsState {
+//   const ProductMainLoaded({required List<dynamic> homeMainModel})
+//       : super(homeCategoryProducts: homeMainModel);
+// }
+
+// class ProductsHomeSpecialLoading extends ProductsState {}
+
+// class ProductHomeSpecialLoaded extends ProductsState {
+//   @override
+//   final List<HomeProductModel> homeSpecialProducts;
+//   const ProductHomeSpecialLoaded(this.homeSpecialProducts);
+// }
+
+// class ProductsLoadedHeyState extends ProductsState {
+//   const ProductsLoadedHeyState({required List<dynamic> homeSpecialModel})
+//       : super(homeCategoryProducts: homeSpecialModel);
+// }
 
 class ProductsErrorState extends ProductsState {
   final String error;

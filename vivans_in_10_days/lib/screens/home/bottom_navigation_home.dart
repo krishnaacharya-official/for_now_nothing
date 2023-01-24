@@ -16,7 +16,7 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
   final List _screens = [
     const Home(),
     SearchScreen(),
-    const CategoriesScreen(),
+    const CategoriesAll(),
     const ProfileScreen()
   ];
   @override

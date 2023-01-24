@@ -7,6 +7,7 @@ import 'package:vivans_in_10_days/app_routes.dart';
 import 'package:vivans_in_10_days/cubit/products/products_cubit.dart';
 import 'package:vivans_in_10_days/design_system/colors.dart';
 import 'package:vivans_in_10_days/design_system/text.dart';
+import 'package:vivans_in_10_days/helpers/constants.dart';
 import 'package:vivans_in_10_days/helpers/extensions.dart';
 import 'package:vivans_in_10_days/helpers/miscillenous.dart';
 import 'package:vivans_in_10_days/helpers/shimmer_home.dart';
@@ -121,7 +122,11 @@ class _HomeState extends State<Home> {
               // child:
             ).marginDown().paddingHorizontal(16),
             flashSaleWidget(homeCategoryPrimary).marginDown(),
-            headRow("Categories").paddingHorizontal(16).marginDown(),
+            headRow("Categories", onTap: () {
+              // context.pushNamed(Routes.categoryAll);
+            })
+                .paddingHorizontal(16)
+                .marginDown(),
             Column(
               children: [
                 Container(
@@ -132,11 +137,17 @@ class _HomeState extends State<Home> {
                       categoryTile(
                           context,
                           'assets/images/home/designer_cake.png',
-                          "Designer Cake"),
+                          "Designer Cake", () {
+                        context.pushNamed(Routes.category,
+                            extra: CategoryList.CATEGORY_CUSTOM);
+                      }),
                       categoryTile(
                           context,
                           'assets/images/home/flavored_cake.png',
-                          "Flavored Cake"),
+                          "Flavored Cake", () {
+                        context.pushNamed(Routes.category,
+                            extra: CategoryList.CATEGORY_FLAVOUR);
+                      }),
                     ],
                   ),
                 ),
@@ -144,9 +155,15 @@ class _HomeState extends State<Home> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     categoryTile(context, 'assets/images/home/party_cake.png',
-                        "Party Cake"),
+                        "Party Cake", () {
+                      context.pushNamed(Routes.category,
+                          extra: CategoryList.CATEGORY_OCCASION);
+                    }),
                     categoryTile(
-                        context, 'assets/images/home/snacks.png', "Snacks"),
+                        context, 'assets/images/home/snacks.png', "Snacks", () {
+                      context.pushNamed(Routes.category,
+                          extra: CategoryList.CATEGORY_SNACKS);
+                    }),
                   ],
                 )
               ],
@@ -176,83 +193,23 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Material productTile(String imageUrl, String title, String discountedPrice,
-      String actualPrice) {
-    return Material(
-      elevation: 1,
-      color: DesignColor.white,
-      borderRadius: BorderRadius.circular(10),
-      borderOnForeground: false,
-      type: MaterialType.card,
-      child: SizedBox(
-        width: productTileWidth,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-                height: productTileWidth,
-                margin: const EdgeInsets.only(bottom: 4),
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage(
-                          imageUrl,
-                        ),
-                        fit: BoxFit.cover),
-                    borderRadius: BorderRadius.circular(10)),
-                child: Container(
-                    alignment: Alignment.topRight,
-                    child: Container(
-                        padding: const EdgeInsets.all(2),
-                        margin: const EdgeInsets.only(right: 2, top: 2),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: DesignColor.green),
-                          borderRadius: BorderRadius.circular(8),
-                          gradient: LinearGradient(
-                            begin: const Alignment(-1.548, -2.134),
-                            end: const Alignment(1.548, 3.607),
-                            colors: [
-                              DesignColor.greenGradientStart,
-                              DesignColor.greenGradientEnd
-                            ],
-                            stops: const <double>[0, 1],
-                          ),
-                        ),
-                        child: "16% OFF".textSmall(DesignColor.black)))),
-            Text(
-              title,
-              maxLines: 1,
-              style: textStyleMediumRegular()
-                  .copyWith(overflow: TextOverflow.ellipsis),
-            ).marginLeft(4),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              textBaseline: TextBaseline.alphabetic,
-              children: [
-                discountedPrice.textLargeBold().marginLeftRight(4),
-                Text(
-                  actualPrice,
-                  style: textStyleSmall()
-                      .copyWith(decoration: TextDecoration.lineThrough),
-                ).marginLeft(8)
-              ],
-            )
-          ],
-        ),
+  InkWell categoryTile(
+      BuildContext context, String imageUrl, String title, Function onTap) {
+    return InkWell(
+      onTap: () {
+        onTap();
+      },
+      child: Container(
+        alignment: Alignment.center,
+        width: MediaQuery.of(context).size.width / 2 - 20,
+        height: 100,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+          fit: BoxFit.cover,
+          image: AssetImage(imageUrl),
+        )),
+        child: title.textLargeBold(DesignColor.white),
       ),
-    );
-  }
-
-  Container categoryTile(BuildContext context, String imageUrl, String title) {
-    return Container(
-      alignment: Alignment.center,
-      width: MediaQuery.of(context).size.width / 2 - 20,
-      height: 100,
-      decoration: BoxDecoration(
-          image: DecorationImage(
-        fit: BoxFit.cover,
-        image: AssetImage(imageUrl),
-      )),
-      child: title.textLargeBold(DesignColor.white),
     );
   }
 
@@ -268,9 +225,11 @@ class _HomeState extends State<Home> {
       )),
       // height: flashSaleHeight,
       child: Column(children: [
-        headRow("Flash Sale", color: DesignColor.black)
-            .marginDown()
-            .marginRight(),
+        headRow("Flash Sale", color: DesignColor.black, onTap: () {
+          context.pushNamed(Routes.homeProductList,
+              extra: homeMainModel,
+              queryParams: {'appBarTitle': homeMainModel.title});
+        }).marginDown().marginRight(),
         Container(
             padding: const EdgeInsets.only(bottom: 8),
             child: SizedBox(
@@ -392,7 +351,11 @@ class _HomeState extends State<Home> {
         itemBuilder: (context, index) {
           HomeProductModel homeProductModel = homeCategoryProducts[index + 1];
           return Column(children: [
-            headRow(homeProductModel.title).paddingHorizontal(16).marginDown(),
+            headRow(homeProductModel.title, onTap: () {
+              context.pushNamed(Routes.homeProductList,
+                  extra: homeProductModel,
+                  queryParams: {'appBarTitle': homeProductModel.title});
+            }).paddingHorizontal(16).marginDown(),
             SizedBox(
               height: productTileHeight,
               child: productsListHorizontal(homeProductModel),
@@ -401,29 +364,6 @@ class _HomeState extends State<Home> {
         },
       ),
     );
-    // return Column(children: [
-    //   Column(children: [
-    //     headRow("Recommended for you 😍").paddingHorizontal(16).marginDown(),
-    //     SizedBox(
-    //       height: productTileHeight,
-    //       child: productsListHorizontal(homeCategoryProducts[0]),
-    //     ).marginLeft(16).marginDown(),
-    //   ]),
-    //   Column(children: [
-    //     headRow("Recommended for you 😍").paddingHorizontal(16).marginDown(),
-    //     SizedBox(
-    //       height: productTileHeight,
-    //       child: productsListHorizontal(homeCategoryProducts[0]),
-    //     ).marginLeft(16).marginDown(),
-    //   ]),
-    //   Column(children: [
-    //     headRow("Recommended for you 😍").paddingHorizontal(16).marginDown(),
-    //     SizedBox(
-    //       height: productTileHeight,
-    //       child: productsListHorizontal(homeCategoryProducts[0]),
-    //     ).marginLeft(16).marginDown(),
-    //   ])
-    // ]);
   }
 }
 

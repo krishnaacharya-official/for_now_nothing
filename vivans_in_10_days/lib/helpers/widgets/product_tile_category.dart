@@ -28,15 +28,15 @@ class ProductTileCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-              child: ClipRRect(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: CachedNetworkImage(
-              fit: BoxFit.cover,
+              width: double.infinity,
+              fit: BoxFit.fitWidth,
               // fadeInDuration: const Duration(milliseconds: 500),
               imageUrl: imageUrl,
               placeholder: (context, url) {
@@ -58,59 +58,49 @@ class ProductTileCategory extends StatelessWidget {
                 return Center(child: Text(error));
               },
             ),
-          )),
-          Text(
-            title,
-            maxLines: 1,
-            style: textStyleLargeRegular()
-                .copyWith(overflow: TextOverflow.ellipsis),
-          ).marginLeft(8),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.baseline,
-            textBaseline: TextBaseline.alphabetic,
-            children: [
-              getPriceWithRupeeTag(discountedPrice, textStyleLargeBold())
-                  .marginRight(8),
-              // Text(
-              //   actualPrice,
-              // style: ,
-              // ).marginLeft(8),
-              Visibility(
-                visible: getDiscountRateOrEmpty(discountRate) != "",
-                child: getPriceWithRupeeTag(
-                    actualPrice,
-                    textStyleMediumRegular()
-                        .copyWith(decoration: TextDecoration.lineThrough)),
-              ),
-              Visibility(
-                visible: getDiscountRateOrEmpty(discountRate) != "",
-                child: Container(
-                    padding: const EdgeInsets.all(4),
-                    decoration: BoxDecoration(
-                        // border: Border.all(color: DesignColor.green),
-                        borderRadius: BorderRadius.circular(8),
-                        // gradient: LinearGradient(
-                        //   begin: const Alignment(-1.548, -2.134),
-                        //   end: const Alignment(1.548, 3.607),
-                        //   colors: [
-                        //     DesignColor.greenGradientStart,
-                        //     DesignColor.greenGradientEnd
-                        //   ],
-                        //   stops: const <double>[0, 1],
-                        // ),
-                        color: DesignColor.green.withOpacity(.2)),
-                    child: Text(
-                      /**alert: change */
-                      "$discountRate %",
-                      style: textStyleMediumRegular().copyWith(
-                          fontWeight: FontWeight.w700,
-                          color: DesignColor.darkGreen),
-                    )).marginLeft(8),
-              )
-            ],
-          ).marginLeft(8)
-        ],
-      ),
+          ),
+        ),
+        Text(
+          title,
+          maxLines: 1,
+          style:
+              textStyleLargeRegular().copyWith(overflow: TextOverflow.ellipsis),
+        ).marginLeft(4).marginTop(2),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.baseline,
+          textBaseline: TextBaseline.alphabetic,
+          children: [
+            getPriceWithRupeeTag(discountedPrice, textStyleLargeBold())
+                .marginRight(8),
+            // Text(
+            //   actualPrice,
+            // style: ,
+            // ).marginLeft(8),
+            Visibility(
+              visible: getDiscountRateOrEmpty(discountRate) != "",
+              child: getPriceWithRupeeTag(
+                  actualPrice,
+                  textStyleMediumRegular()
+                      .copyWith(decoration: TextDecoration.lineThrough)),
+            ),
+            Visibility(
+              visible: getDiscountRateOrEmpty(discountRate) != "",
+              child: Container(
+                  padding: const EdgeInsets.all(4),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      color: DesignColor.green.withOpacity(.2)),
+                  child: Text(
+                    /**alert: change */
+                    "$discountRate %",
+                    style: textStyleMediumRegular().copyWith(
+                        fontWeight: FontWeight.w700,
+                        color: DesignColor.darkGreen),
+                  )).marginLeft(8),
+            )
+          ],
+        ).marginLeft(4)
+      ],
     );
   }
 }

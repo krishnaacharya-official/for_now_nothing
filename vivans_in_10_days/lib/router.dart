@@ -17,10 +17,13 @@ import 'package:go_router/go_router.dart';
 import 'package:vivans_in_10_days/app_routes.dart';
 import 'package:vivans_in_10_days/cubit/auth/auth_cubit.dart';
 import 'package:vivans_in_10_days/cubit/auth/auth_state.dart';
+import 'package:vivans_in_10_days/helpers/constants.dart';
 import 'package:vivans_in_10_days/models/address_model.dart';
 import 'package:vivans_in_10_days/models/products_main_model.dart';
 import 'package:vivans_in_10_days/screens/home/bottom_navigation_home.dart';
 import 'package:vivans_in_10_days/screens/home/cart_screen.dart';
+import 'package:vivans_in_10_days/screens/home/categories_all.dart';
+import 'package:vivans_in_10_days/screens/home/categories_screen.dart';
 import 'package:vivans_in_10_days/screens/home/details_screen.dart';
 import 'package:vivans_in_10_days/screens/home/home.dart';
 import 'package:vivans_in_10_days/screens/home/home_product_list.dart';
@@ -116,6 +119,19 @@ final GoRouter router = GoRouter(initialLocation: '/', routes: [
           appBarTitle: appBarTitle,
           showSortFilter: showSortFilter);
     },
-  )
+  ),
+  GoRoute(
+      path: '/categoryAll',
+      name: Routes.categoryAll,
+      builder: (context, state) {
+        return const CategoriesAll();
+      }),
+  GoRoute(
+      path: '/category',
+      name: Routes.category,
+      builder: (context, state) {
+        CategoryList category = state.extra as CategoryList;
+        return CategoriesScreen(category: category);
+      })
   // GoRoute(path: '/detailedCategory')
 ]);

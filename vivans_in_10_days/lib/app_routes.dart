@@ -14,4 +14,8 @@ class Routes {
   static const detailedCategory = 'detailedCategory';
 
   static var homeProductList = 'homeProductList';
+
+  static var categoryAll = "categoryAll";
+
+  static var category = "category";
 }
