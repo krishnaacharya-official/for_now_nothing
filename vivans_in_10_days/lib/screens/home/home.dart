@@ -2,6 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:vivans_in_10_days/app_routes.dart';
 import 'package:vivans_in_10_days/cubit/products/products_cubit.dart';
 import 'package:vivans_in_10_days/design_system/colors.dart';
 import 'package:vivans_in_10_days/design_system/text.dart';
@@ -89,10 +91,10 @@ class _HomeState extends State<Home> {
           HomeProductModel homeCategoryPrimary = homeCategoryProducts?[0];
           // debugPrint(homeSpecialModel.image.url);
           return ListView(children: [
-            headRow("Special Offers")
-                .marginDown()
-                .marginTop()
-                .paddingHorizontal(16),
+            headRow("Special Offers", onTap: () {
+              context.pushNamed(Routes.specialOffer,
+                  extra: homeSpecialProducts);
+            }).marginDown().marginTop().paddingHorizontal(16),
             SizedBox(
               height: specialOfferTileHeight,
               child: ClipRRect(
@@ -172,35 +174,6 @@ class _HomeState extends State<Home> {
             .marginRight(8);
       },
     );
-    // return ListView(
-    //   scrollDirection: Axis.horizontal,
-    //   children: [
-    //     ProductTileHome(
-    //       imageUrl: 'assets/images/home/cake_2.png',
-    //       title: "BlackForest Cake ",
-    //       discountedPrice: "\$300",
-    //       actualPrice: "\$500",
-    //     ).marginRight(8),
-    //     ProductTileHome(
-    //       imageUrl: 'assets/images/home/cake_2.png',
-    //       title: "BlackForest Cake ",
-    //       discountedPrice: "\$300",
-    //       actualPrice: "\$500",
-    //     ).marginRight(8),
-    //     ProductTileHome(
-    //       imageUrl: 'assets/images/home/cake_2.png',
-    //       title: "BlackForest Cake ",
-    //       discountedPrice: "\$300",
-    //       actualPrice: "\$500",
-    //     ).marginRight(8),
-    //     ProductTileHome(
-    //       imageUrl: 'assets/images/home/cake_2.png',
-    //       title: "BlackForest Cake ",
-    //       discountedPrice: "\$300",
-    //       actualPrice: "\$500",
-    //     ).marginRight(8),
-    //   ],
-    // );
   }
 
   Material productTile(String imageUrl, String title, String discountedPrice,
@@ -295,7 +268,9 @@ class _HomeState extends State<Home> {
       )),
       // height: flashSaleHeight,
       child: Column(children: [
-        headRow("Flash Sale", DesignColor.black).marginDown().marginRight(),
+        headRow("Flash Sale", color: DesignColor.black)
+            .marginDown()
+            .marginRight(),
         Container(
             padding: const EdgeInsets.only(bottom: 8),
             child: SizedBox(
@@ -390,13 +365,19 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Row headRow(String text, [Color? color]) {
+  Row headRow(String text, {Color? color, Function? onTap}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         text.textLargeBold(),
-        "See All".textMediumBold(color ?? DesignColor.green)
+        InkWell(
+            onTap: onTap != null
+                ? () {
+                    onTap();
+                  }
+                : () {},
+            child: "See All".textMediumBold(color ?? DesignColor.green))
       ],
     );
   }
@@ -406,6 +387,7 @@ class _HomeState extends State<Home> {
     return SizedBox(
       height: (homeCategoryProducts.length - 1) * (productTileHeight + 60),
       child: ListView.builder(
+        physics: const NeverScrollableScrollPhysics(),
         itemCount: homeCategoryProducts.length - 1,
         itemBuilder: (context, index) {
           HomeProductModel homeProductModel = homeCategoryProducts[index + 1];

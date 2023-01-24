@@ -18,10 +18,13 @@ import 'package:vivans_in_10_days/app_routes.dart';
 import 'package:vivans_in_10_days/cubit/auth/auth_cubit.dart';
 import 'package:vivans_in_10_days/cubit/auth/auth_state.dart';
 import 'package:vivans_in_10_days/models/address_model.dart';
+import 'package:vivans_in_10_days/models/products_main_model.dart';
 import 'package:vivans_in_10_days/screens/home/bottom_navigation_home.dart';
 import 'package:vivans_in_10_days/screens/home/cart_screen.dart';
 import 'package:vivans_in_10_days/screens/home/details_screen.dart';
 import 'package:vivans_in_10_days/screens/home/home.dart';
+import 'package:vivans_in_10_days/screens/home/home_product_list.dart';
+import 'package:vivans_in_10_days/screens/home/special_offers_all.dart';
 import 'package:vivans_in_10_days/screens/phoneAuth/otp_screen.dart';
 import 'package:vivans_in_10_days/screens/phoneAuth/sign_in.dart';
 import 'package:vivans_in_10_days/screens/profile/add_address.dart';
@@ -39,6 +42,8 @@ final GoRouter router = GoRouter(initialLocation: '/', routes: [
         }, builder: (context, state) {
           if (state is AuthLoggedInState) {
             return const MainHomeScreen();
+
+            // return  HomeProductsList();
           } else {
             return SignIn();
           }
@@ -87,5 +92,30 @@ final GoRouter router = GoRouter(initialLocation: '/', routes: [
       name: Routes.addressAdd,
       builder: (context, state) => state.queryParams.isNotEmpty
           ? AddAddress(address: AddressModel.fromJsonString(state.queryParams))
-          : AddAddress())
+          : AddAddress()),
+  GoRoute(
+    path: '/specialOffer',
+    name: Routes.specialOffer,
+    builder: (context, state) {
+      List<dynamic> homeSpecialProducts = state.extra as List<dynamic>;
+      return SpecialOffersScreen(homeSpecialProducts: homeSpecialProducts);
+    },
+  ),
+  GoRoute(
+    path: '/homeProductList',
+    name: Routes.homeProductList,
+    builder: (context, state) {
+      bool showSortFilter = state.queryParams['showSortFilter'] != null
+          ? state.queryParams['showSortFilter'] == "true"
+          : false;
+      String? appBarTitle = state.queryParams['appBarTitle'];
+
+      HomeProductModel homeProductModel = state.extra as HomeProductModel;
+      return HomeProductsList(
+          homeProductModel: homeProductModel,
+          appBarTitle: appBarTitle,
+          showSortFilter: showSortFilter);
+    },
+  )
+  // GoRoute(path: '/detailedCategory')
 ]);

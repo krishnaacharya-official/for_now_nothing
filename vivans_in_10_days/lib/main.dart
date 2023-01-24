@@ -8,6 +8,7 @@ import 'package:vivans_in_10_days/helpers/miscillenous.dart';
 import 'package:vivans_in_10_days/helpers/providers.dart';
 import 'package:vivans_in_10_days/router.dart';
 
+// final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();

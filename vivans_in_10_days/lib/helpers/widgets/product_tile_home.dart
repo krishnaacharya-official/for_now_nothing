@@ -13,13 +13,14 @@ class ProductTileHome extends StatelessWidget {
   int? discountRate;
   final productTileHeight = 16 * 11.5.toDouble();
   final productTileWidth = 130.toDouble();
-  ProductTileHome(
-      {super.key,
-      required this.imageUrl,
-      required this.discountRate,
-      required this.title,
-      required this.discountedPrice,
-      required this.actualPrice});
+  ProductTileHome({
+    super.key,
+    required this.imageUrl,
+    required this.discountRate,
+    required this.title,
+    required this.discountedPrice,
+    required this.actualPrice,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -105,11 +106,14 @@ class ProductTileHome extends StatelessWidget {
               children: [
                 getPriceWithRupeeTag(discountedPrice, textStyleLargeBold())
                     .marginRight(2),
-                getPriceWithRupeeTag(
-                        actualPrice,
-                        textStyleSmall()
-                            .copyWith(decoration: TextDecoration.lineThrough))
-                    .marginLeft(8)
+                Visibility(
+                  visible: getDiscountRateOrEmpty(discountRate) != "",
+                  child: getPriceWithRupeeTag(
+                          actualPrice,
+                          textStyleSmall()
+                              .copyWith(decoration: TextDecoration.lineThrough))
+                      .marginLeft(8),
+                )
               ],
             ).marginLeft(4)
           ],

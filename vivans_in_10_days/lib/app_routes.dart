@@ -10,4 +10,8 @@ class Routes {
   static const orders = 'order';
   static const addressMine = 'myAddress';
   static const addressAdd = 'addAddress';
+  static const specialOffer = 'specialOffer';
+  static const detailedCategory = 'detailedCategory';
+
+  static var homeProductList = 'homeProductList';
 }
