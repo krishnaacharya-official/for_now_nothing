@@ -47,7 +47,7 @@ final GoRouter router = GoRouter(initialLocation: '/', routes: [
           if (state is AuthLoggedInState) {
             return const MainHomeScreen();
 
-            // return const FilterScreen();
+            // return const MyWidget();
           } else {
             return SignIn();
           }

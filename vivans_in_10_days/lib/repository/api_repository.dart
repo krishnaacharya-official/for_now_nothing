@@ -84,18 +84,25 @@ class ApiRepository {
       final products = productsJson
           .map((productJson) => ProductModel.fromJson(productJson))
           .toList();
-      if (response.statusCode >= 200 && response.statusCode < 300) {
-        print(
-            "Request successful: ${response.statusCode} ${products.toString()}");
-      } else {
-        print("Request failed: ${response.statusCode}");
-      }
+      // if (response.statusCode >= 200 && response.statusCode < 300) {
+      //   print(
+      //       "Request successful: ${response.statusCode} ${products.toString()}");
+      // } else {
+      //   print("Request failed: ${response.statusCode}");
+      // }
+      printJson(products);
       return products;
     } on http.ClientException {
       rethrow;
     } on Exception {
       rethrow;
     }
+  }
+
+  void printJson(jsonData) {
+    var encoder = const JsonEncoder.withIndent('  ');
+    var jsonString = encoder.convert(jsonData);
+    print(jsonString);
   }
 
   Future<List<dynamic>> fetchProductsByCategoryAscDesc(
@@ -107,6 +114,7 @@ class ApiRepository {
       final products = productsJson
           .map((productJson) => ProductModel.fromJson(productJson))
           .toList();
+      printJson(products);
       return products;
     } on http.ClientException {
       rethrow;
@@ -118,24 +126,36 @@ class ApiRepository {
   Future<List<dynamic>> fetchFilteredProducts(
       List<Map<String, int>> selectedPriceRange,
       List<String> selectedTags) async {
-    SelectorBuilder selector = where.eq("primaryPrice", {
-      "\$gte": selectedPriceRange[0]['lower'],
-      "\$lt": selectedPriceRange[0]['upper']
-    });
+    await connect();
+    print("I am inside fetchFilteredProducts");
+    SelectorBuilder? selector;
 
-    for (var range in selectedPriceRange.sublist(1)) {
-      selector = selector.or(
-          where.eq("price", {"\$gte": range['lower'], "\$lt": range['upper']}));
+    if (selectedPriceRange.isNotEmpty) {
+      selector = where.eq("primaryPrice", {
+        "\$gte": selectedPriceRange[0]['lower'],
+        "\$lt": selectedPriceRange[0]['upper']
+      });
+      for (var range in selectedPriceRange.sublist(1)) {
+        selector = selector?.or(where.eq(
+            "primaryPrice", {"\$gte": range['lower'], "\$lt": range['upper']}));
+      }
     }
     if (selectedTags.isNotEmpty) {
-      selector = selector.and(where.oneFrom("tags", selectedTags));
+      selector = selector != null
+          ? selector.and(where.oneFrom("tags", selectedTags))
+          : where.oneFrom("tags", selectedTags);
     }
 
     try {
-      var response = await productsCollection.find(selector).toList();
-      print("The response is ${response.length}");
-
-      return response;
+      var response = selector != null
+          ? await productsCollection.find(selector).toList()
+          : await productsCollection.find().toList();
+      // print("The response is ${response.length}");
+      final products = response
+          .map((productJson) => ProductModel.fromJson(productJson))
+          .toList();
+      printJson(products);
+      return products;
     } catch (e) {
       rethrow;
     }

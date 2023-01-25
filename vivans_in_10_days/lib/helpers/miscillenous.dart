@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:vivans_in_10_days/design_system/colors.dart';
 import 'package:vivans_in_10_days/design_system/text.dart';
 import 'package:vivans_in_10_days/helpers/extensions.dart';
@@ -6,7 +7,8 @@ import 'package:vivans_in_10_days/helpers/extensions.dart';
 enum ButtonType { outline, filled }
 
 class NoDataHelper extends StatelessWidget {
-  IconData iconData;
+  //  String? svgAsset;
+  dynamic iconData;
   String title;
   String? subtitle;
   ButtonType buttonType;
@@ -38,19 +40,22 @@ class NoDataHelper extends StatelessWidget {
                   color: DesignColor.green.withOpacity(.2)),
               child: Align(
                 alignment: Alignment.center,
-                child: Icon(
-                  iconData,
-                  color: DesignColor.darkGreen,
-                  size: MediaQuery.of(context).size.width / 4,
-                ),
+                child: iconData.runtimeType == IconData
+                    ? Icon(
+                        iconData,
+                        color: DesignColor.darkGreen,
+                        size: MediaQuery.of(context).size.width / 4,
+                      )
+                    : SvgPicture.asset(
+                        iconData,
+                        color: DesignColor.darkGreen,
+                        width: MediaQuery.of(context).size.width / 4,
+                        height: MediaQuery.of(context).size.width / 4,
+                      ),
               ),
             ).marginDown(32),
             title.textLargeBold().marginDown(32),
             subtitle != null
-                // ? subtitle!
-                //     .textMediumRegular()
-                //     .marginDown(32)
-                //     .paddingHorizontal(32)
                 ? Text(
                     subtitle!,
                     style: textStyleMediumRegular(),

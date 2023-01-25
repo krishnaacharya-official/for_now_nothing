@@ -1,6 +1,9 @@
+import 'package:mongo_dart/mongo_dart.dart';
+
 class ProductModel {
   ProductModel({
-    required this.id,
+    // required dynamic this.id,
+    required dynamic objectStringId,
     required this.typeOfProduct,
     required this.name,
     required this.primaryPrice,
@@ -14,7 +17,9 @@ class ProductModel {
     this.quantity,
     this.primaryDiscountedRate,
     this.secondaryDiscountedRate,
-  });
+  }) : id = (objectStringId is ObjectId
+            ? objectStringId.toString()
+            : objectStringId);
 
   String id;
   // ObjectId id;
@@ -33,7 +38,7 @@ class ProductModel {
   int? secondaryDiscountedRate;
 
   factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
-      id: json["_id"],
+      objectStringId: json["_id"],
       typeOfProduct: json["typeOfProduct"],
       name: json["name"],
       primaryPrice: (json["primaryPrice"]),

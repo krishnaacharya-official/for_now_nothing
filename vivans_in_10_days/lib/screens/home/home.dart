@@ -9,7 +9,6 @@ import 'package:vivans_in_10_days/design_system/colors.dart';
 import 'package:vivans_in_10_days/design_system/text.dart';
 import 'package:vivans_in_10_days/helpers/constants.dart';
 import 'package:vivans_in_10_days/helpers/extensions.dart';
-import 'package:vivans_in_10_days/helpers/miscillenous.dart';
 import 'package:vivans_in_10_days/helpers/shimmer_home.dart';
 import 'package:vivans_in_10_days/helpers/widgets/product_tile_home.dart';
 import 'package:vivans_in_10_days/models/product_model.dart';
@@ -75,16 +74,18 @@ class _HomeState extends State<Home> {
             return const ShimmerHome();
           }
           if (state is ProductsErrorState) {
-            return NoDataHelper(
-                iconData: Icons.warning_amber_rounded,
-                title: "Internal error occured",
-                subtitle:
-                    "Seems like your internet connection is poor or unstable. Please check your connection and try again",
-                buttonTitle: "Retry",
-                buttonType: ButtonType.filled,
-                onTap: () {
-                  BlocProvider.of<ProductsCubit>(context).init();
-                });
+            /**attention: change */
+            return Text(state.error);
+            // return NoDataHelper(
+            //     iconData: Icons.warning_amber_rounded,
+            //     title: "Internal error occured",
+            //     subtitle:
+            //         "Seems like your internet connection is poor or unstable. Please check your connection and try again",
+            //     buttonTitle: "Retry",
+            //     buttonType: ButtonType.filled,
+            //     onTap: () {
+            //       BlocProvider.of<ProductsCubit>(context).init();
+            //     });
           }
           List<dynamic>? homeSpecialProducts = state.homeSpecialProducts;
           List<dynamic>? homeCategoryProducts = state.homeCategoryProducts;

@@ -1,3 +1,5 @@
+// ignore_for_file: slash_for_doc_comments
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -14,6 +16,7 @@ class FilterScreen extends StatefulWidget {
   State<FilterScreen> createState() => _FilterScreenState();
 }
 
+/**feature: You can persist the filters for a better user experience */
 class _FilterScreenState extends State<FilterScreen> {
   // List<bool?> values = [false, false, false, false, false];
   List<bool?> priceValues = List.filled(5, false);
@@ -192,8 +195,7 @@ class _FilterScreenState extends State<FilterScreen> {
                         selectedTags.add(tags[index]);
                       }
                     }
-                    print(selectedPriceRange);
-                    print(selectedTags);
+
                     BlocProvider.of<ProductsCubit>(context)
                         .fetchFilteredProducts(
                             selectedPriceRange, selectedTags);

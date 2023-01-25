@@ -10,7 +10,13 @@ import 'package:vivans_in_10_days/helpers/extensions.dart';
 import 'package:vivans_in_10_days/helpers/miscillenous.dart';
 import 'package:vivans_in_10_days/helpers/shimmer_grid.dart';
 import 'package:vivans_in_10_days/helpers/widgets/product_tile_category.dart';
+import 'package:vivans_in_10_days/models/product_model.dart';
 
+// ignore: slash_for_doc_comments
+/**feature: Presently the sort and filter only works independently and it doesn't work together as the choices in the sort
+ * and filters are not persisted, and this can be added as a feature in the next version.
+ * 
+ */
 class CategoriesScreen extends StatefulWidget {
   CategoryList category;
   String? title;
@@ -115,19 +121,33 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
         builder: (context, state) {
           size = MediaQuery.of(context).size;
           if (state is ProductsErrorState) {
-            return NoDataHelper(
-                iconData: Icons.warning_amber_rounded,
-                title: "Internal error occured",
-                subtitle:
-                    "Seems like your internet connection is poor or unstable. Please check your connection and try again",
-                buttonTitle: "Retry",
-                buttonType: ButtonType.filled,
-                onTap: () {
-                  BlocProvider.of<ProductsCubit>(context).init();
-                });
+            /**attention: change */
+            return Text(state.error);
+            // return NoDataHelper(
+            //     iconData: Icons.warning_amber_rounded,
+            //     title: "Internal error occured",
+            //     subtitle:
+            //         "Seems like your internet connection is poor or unstable. Please check your connection and try again",
+            //     buttonTitle: "Retry",
+            //     buttonType: ButtonType.filled,
+            //     onTap: () {
+            //       BlocProvider.of<ProductsCubit>(context).init();
+            //     });
           }
           if (state is ProductsLoading) {
             return Scaffold(body: ShimmerGrid());
+          }
+          if (state.mainCategoryProducts?.isEmpty == true) {
+            print("I am inside the empty box");
+            return NoDataHelper(
+                iconData: "assets/svg/noproducts.svg",
+                // iconData: Icons.abc_outlined,
+                title: "No products found",
+                buttonTitle: "Go to Home Page",
+                buttonType: ButtonType.filled,
+                onTap: () {
+                  context.goNamed(Routes.homeMain);
+                });
           }
           return GridView.builder(
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -137,7 +157,8 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
             ),
             itemCount: state.mainCategoryProducts?.length,
             itemBuilder: (context, index) {
-              var product = state.mainCategoryProducts?[index];
+              ProductModel product =
+                  state.mainCategoryProducts?[index] as ProductModel;
               return ProductTileCategory(
                 imageUrl: product.images[0].url,
                 title: product.name,
