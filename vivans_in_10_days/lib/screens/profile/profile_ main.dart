@@ -19,7 +19,7 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: DesignColor.grey,
       appBar: AppBar(
-        title: "Profile".appBarText(),
+        title: "Profile".appBarText().marginLeft(16),
         backgroundColor: DesignColor.green,
       ),
       body: BlocBuilder<UserCubit, UserState>(builder: (context, state) {

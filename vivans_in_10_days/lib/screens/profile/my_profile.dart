@@ -17,13 +17,17 @@ class MyProfileScreen extends StatefulWidget {
 /**alert: If back button is pressed without saving profile 
  * populate a dialog "Discard changes" 
  * */
+
   @override
   State<MyProfileScreen> createState() => _MyProfileScreenState();
 }
 
 enum Avatar { boy, girl }
 
-class _MyProfileScreenState extends State<MyProfileScreen> {
+class _MyProfileScreenState extends State<MyProfileScreen>
+    with SingleTickerProviderStateMixin {
+  AnimationController? _animationController;
+  final double _slideAmount = 0;
   final _fullNameKey = GlobalKey<FormState>();
   final _dateOfBirthKey = GlobalKey<FormState>();
   final _phoneKey = GlobalKey<FormState>();
@@ -40,11 +44,19 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
   late UserCubit userCubit;
   late UserState _userState;
   get updateDetails => _userState.userModel != null;
-
+  // late final controller;
+  // CurvedAnimation curve = CurvedAnimation(parent: animation, curve: Curves.easeInOut);
   @override
   void initState() {
     super.initState();
-
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 2),
+    );
+    // controller = AnimationController(
+    //   vsync: Overlay.of(context),
+    //   duration: const Duration(seconds: 5),
+    // );
     userCubit = BlocProvider.of<UserCubit>(context);
     _userState = userCubit.state;
     print(
@@ -112,8 +124,14 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
               fullNameController!.text = state.userModel?.fullName ?? "";
             }
             if (state is UserSavedUpdatedState) {
-              context.goNamed(Routes.profileMain);
+              /**attention: You can provide additional param of the index, 
+               * because if you send to profile, i will loose the bottomNavBar which i dont want
+               *Check all the address save buttons as well , if it kills the bottom nav bar
+               */
+              context.goNamed(Routes.homeMain);
+
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  // animation: SnackBarAnimation,
                   behavior: SnackBarBehavior.floating,
                   margin: const EdgeInsets.all(16),
                   backgroundColor: DesignColor.green,
@@ -124,6 +142,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                       : const Text("Details Saved Succesfully"),
                   // content: const Text("Details Save"),
                   duration: const Duration(seconds: 3)));
+              // controller.forward();
             }
             if (state is UserException) {
               context.goNamed(Routes.profileMain);
