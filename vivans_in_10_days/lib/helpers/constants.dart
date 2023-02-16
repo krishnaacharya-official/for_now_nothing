@@ -2,6 +2,8 @@ class Constants {
   static String MONGO_CONN_URL =
       "mongodb+srv://Krish:7qj-A9Qr.cJ-STK@cluster.jwxvr.mongodb.net/sample?retryWrites=true&w=majority";
 
+  static String TYPEOFPRODUCT_CAKE = "Cake";
+  static String TYPEOFPRODUCT_SNACKS = "Snacks";
   static String CATEGORY_FLAVOUR = "Flavor";
   static String CATEGORY_CUSTOM = "Customized";
   static String CATEGORY_VIVANSSPECIAL = "Vivan's Special";

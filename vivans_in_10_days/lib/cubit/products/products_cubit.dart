@@ -63,4 +63,11 @@ class ProductsCubit extends Cubit<ProductsState> {
       emit(ProductsErrorState(e.toString()));
     }
   }
+
+  Future<List?> fetchSimilarForDetailsPage(
+      List<String> categories, List<String> tags) async {
+    var products =
+        await apiRepository.fetchSimilarForDetailsPage(categories, tags);
+    return products;
+  }
 }

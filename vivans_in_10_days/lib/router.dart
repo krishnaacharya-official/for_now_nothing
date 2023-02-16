@@ -19,8 +19,8 @@ import 'package:vivans_in_10_days/cubit/auth/auth_cubit.dart';
 import 'package:vivans_in_10_days/cubit/auth/auth_state.dart';
 import 'package:vivans_in_10_days/helpers/constants.dart';
 import 'package:vivans_in_10_days/models/address_model.dart';
+import 'package:vivans_in_10_days/models/product_model.dart';
 import 'package:vivans_in_10_days/models/products_main_model.dart';
-import 'package:vivans_in_10_days/sample.dart';
 import 'package:vivans_in_10_days/screens/home/bottom_navigation_home.dart';
 import 'package:vivans_in_10_days/screens/home/cart_screen.dart';
 import 'package:vivans_in_10_days/screens/home/categories_all.dart';
@@ -46,9 +46,9 @@ final GoRouter router = GoRouter(initialLocation: '/', routes: [
           return oldState is AuthInitialState;
         }, builder: (context, state) {
           if (state is AuthLoggedInState) {
-            // return const MainHomeScreen();
+            return const MainHomeScreen();
 
-            return const MyWidget();
+            // return const MyWidget();
           } else {
             return SignIn();
           }
@@ -66,7 +66,7 @@ final GoRouter router = GoRouter(initialLocation: '/', routes: [
       name: Routes.details,
       path: '/details',
       builder: (context, state) => DetailsScreen(
-            sample: state.queryParams[0]!,
+            productModel: state.extra as ProductModel,
           )),
   GoRoute(
       path: '/otpScreen/:id',

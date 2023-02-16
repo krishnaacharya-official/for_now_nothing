@@ -127,6 +127,10 @@ String getDiscountRateOrEmpty(int? discount) {
   return discount == 0 ? "" : "$discount%";
 }
 
+String getDiscountRateOrEmptyoff(int? discount) {
+  return discount == 0 ? "" : "$discount% off";
+}
+
 RichText getPriceWithRupeeTag(int? price, [TextStyle? textStyle]) {
   textStyle ??= textStyleLargeRegular();
   return RichText(

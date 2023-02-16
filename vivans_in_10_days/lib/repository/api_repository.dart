@@ -126,6 +126,7 @@ class ApiRepository {
   Future<List<dynamic>> fetchFilteredProducts(
       List<Map<String, int>> selectedPriceRange,
       List<String> selectedTags) async {
+    /**attention: Try to make it a singleton, it should not everytime connect , once already connected  */
     await connect();
     print("I am inside fetchFilteredProducts");
     SelectorBuilder? selector;
@@ -144,6 +145,39 @@ class ApiRepository {
       selector = selector != null
           ? selector.and(where.oneFrom("tags", selectedTags))
           : where.oneFrom("tags", selectedTags);
+    }
+
+    try {
+      var response = selector != null
+          ? await productsCollection.find(selector).toList()
+          : await productsCollection.find().toList();
+      // print("The response is ${response.length}");
+      final products = response
+          .map((productJson) => ProductModel.fromJson(productJson))
+          .toList();
+      printJson(products);
+      return products;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<List<dynamic>> fetchSimilarForDetailsPage(
+      List<String> categories, List<String> tags) async {
+    /**attention: Try to make it a singleton, it should not everytime connect , once already connected  */
+    await connect();
+    print("I am inside fetchsimilarfordetailspage");
+    SelectorBuilder? selector;
+
+    if (tags.isNotEmpty) {
+      selector = selector != null
+          ? selector.and(where.oneFrom("tags", tags))
+          : where.oneFrom("tags", tags);
+    }
+    if (categories.isNotEmpty) {
+      selector = selector != null
+          ? selector.and(where.oneFrom("categories", categories))
+          : where.oneFrom("categories", categories);
     }
 
     try {

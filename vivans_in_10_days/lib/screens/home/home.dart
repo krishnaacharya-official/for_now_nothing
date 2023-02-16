@@ -252,13 +252,20 @@ class _HomeState extends State<Home> {
                     : homeMainModel.products.length,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
-                  return flashSaleTile(
-                          image: homeMainModel.products[index].images[0].url,
-                          discount: homeMainModel
-                              .products[index].primaryDiscountedRate
-                              ?.toInt(),
-                          title: homeMainModel.products[index].name)
-                      .marginRight(8);
+                  return GestureDetector(
+                    onTap: () {
+                      print("Hello bro");
+                      context.pushNamed(Routes.details,
+                          extra: homeMainModel.products[index]);
+                    },
+                    child: flashSaleTile(
+                            image: homeMainModel.products[index].images[0].url,
+                            discount: homeMainModel
+                                .products[index].primaryDiscountedRate
+                                ?.toInt(),
+                            title: homeMainModel.products[index].name)
+                        .marginRight(8),
+                  );
                 },
               ),
             ))

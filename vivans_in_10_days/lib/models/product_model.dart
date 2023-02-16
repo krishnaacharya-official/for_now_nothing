@@ -32,7 +32,7 @@ class ProductModel {
   List<String> categories;
   List<String> tags;
   String? description;
-  List<Image> images;
+  List<ImageModel> images;
   String? quantity;
   int? primaryDiscountedRate;
   int? secondaryDiscountedRate;
@@ -48,7 +48,8 @@ class ProductModel {
       categories: List<String>.from(json["categories"].map((x) => x)),
       tags: List<String>.from(json["tags"].map((x) => x)),
       description: json["description"],
-      images: List<Image>.from(json["images"].map((x) => Image.fromJson(x))),
+      images: List<ImageModel>.from(
+          json["images"].map((x) => ImageModel.fromJson(x))),
       quantity: json["quantity"],
       // primaryDiscountedRate: (json["primaryDiscountedRate"]) != null
       //     ? json['primaryDiscountedRate'].toInt()
@@ -75,8 +76,8 @@ class ProductModel {
       };
 }
 
-class Image {
-  Image({
+class ImageModel {
+  ImageModel({
     required this.url,
     required this.publicId,
   });
@@ -84,7 +85,7 @@ class Image {
   String url;
   String publicId;
 
-  factory Image.fromJson(Map<String, dynamic> json) => Image(
+  factory ImageModel.fromJson(Map<String, dynamic> json) => ImageModel(
         url: json["url"],
         publicId: json["public_id"],
       );

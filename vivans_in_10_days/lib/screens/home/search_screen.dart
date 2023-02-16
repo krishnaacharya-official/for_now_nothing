@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vivans_in_10_days/design_system/text.dart';
 import 'package:vivans_in_10_days/helpers/extensions.dart';
-import 'package:vivans_in_10_days/helpers/widgets/product_tile_search.dart';
 
 class SearchScreenDelegate extends SearchDelegate {
   List<String> searchTerms = [
@@ -111,37 +110,37 @@ class SearchScreen extends StatelessWidget {
             )
           ]).marginDown(16),
           "Popular Searches".textLargeBold().marginDown(16),
-          SizedBox(
-              height: productTileHeight,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  ProductTileSearch(
-                    imageUrl: 'assets/images/home/cake_2.png',
-                    title: "BlackForest Cake ",
-                    discountedPrice: "\$300",
-                    actualPrice: "\$500",
-                  ).marginRight(8),
-                  ProductTileSearch(
-                    imageUrl: 'assets/images/home/cake_2.png',
-                    title: "BlackForest Cake ",
-                    discountedPrice: "\$300",
-                    actualPrice: "\$500",
-                  ).marginRight(8),
-                  ProductTileSearch(
-                    imageUrl: 'assets/images/home/cake_2.png',
-                    title: "BlackForest Cake ",
-                    discountedPrice: "\$300",
-                    actualPrice: "\$500",
-                  ).marginRight(8),
-                  ProductTileSearch(
-                    imageUrl: 'assets/images/home/cake_2.png',
-                    title: "BlackForest Cake ",
-                    discountedPrice: "\$300",
-                    actualPrice: "\$500",
-                  ).marginRight(8),
-                ],
-              )),
+          // SizedBox(
+          //     height: productTileHeight,
+          //     child: ListView(
+          //       scrollDirection: Axis.horizontal,
+          //       children: [
+          //         ProductTileSearch(
+          //           imageUrl: 'assets/images/home/cake_2.png',
+          //           title: "BlackForest Cake ",
+          //           discountedPrice: "\$300",
+          //           actualPrice: "\$500",
+          //         ).marginRight(8),
+          //         ProductTileSearch(
+          //           imageUrl: 'assets/images/home/cake_2.png',
+          //           title: "BlackForest Cake ",
+          //           discountedPrice: "\$300",
+          //           actualPrice: "\$500",
+          //         ).marginRight(8),
+          //         ProductTileSearch(
+          //           imageUrl: 'assets/images/home/cake_2.png',
+          //           title: "BlackForest Cake ",
+          //           discountedPrice: "\$300",
+          //           actualPrice: "\$500",
+          //         ).marginRight(8),
+          //         ProductTileSearch(
+          //           imageUrl: 'assets/images/home/cake_2.png',
+          //           title: "BlackForest Cake ",
+          //           discountedPrice: "\$300",
+          //           actualPrice: "\$500",
+          //         ).marginRight(8),
+          //       ],
+          //     )),
         ]),
       ),
     );
