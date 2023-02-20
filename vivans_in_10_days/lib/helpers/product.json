@@ -1,0 +1,598 @@
+{
+  "data": [
+    {
+      "_id": "634acde1a556b0cd25dfffb1",
+      "typeOfProduct": "Cake",
+      "name": "Designer Cake",
+      "primaryPrice": 700,
+      "primaryDiscountedPrice": 560,
+      "secondaryPrice": 1400,
+      "secondaryDiscountedPrice": 1120,
+      "categories": ["Special one", "Occasion", "Vivan's Special"],
+      "tags": ["Birthday", "Vanilla", "Designer", "Strawberry"],
+      "description": "This is the best cake ",
+      "images": [
+        {
+          "url": "https://res.cloudinary.com/dpurb6xes/image/upload/v1667572061/vivans/o5eu0srt6nhrazjsny6c.png",
+          "public_id": "vivans/o5eu0srt6nhrazjsny6c"
+        },
+        {
+          "url": "https://res.cloudinary.com/dpurb6xes/image/upload/v1665846751/vivans/sbbvacl2zcri9hmztwm0.png",
+          "public_id": "vivans/sbbvacl2zcri9hmztwm0"
+        },
+        {
+          "url": "https://res.cloudinary.com/dpurb6xes/image/upload/v1665846752/vivans/loiinl2ilcvvmykjuaal.png",
+          "public_id": "vivans/loiinl2ilcvvmykjuaal"
+        }
+      ],
+      "quantity": "1 Box",
+      "__v": 0,
+      "primaryDiscountedRate": 20,
+      "secondaryDiscountedRate": 20
+    },
+    {
+      "_id": "63635e26e9d1cc04990d70bb",
+      "typeOfProduct": "Cake",
+      "name": "Blackberry Cake",
+      "primaryPrice": 700,
+      "primaryDiscountedPrice": 500,
+      "primaryDiscountedRate": 28.57142857142857,
+      "secondaryPrice": 1400,
+      "secondaryDiscountedPrice": 999,
+      "secondaryDiscountedRate": 28.642857142857142,
+      "categories": ["Customized", "Occasion"],
+      "tags": ["Black Forest", "Photo", "Teacher's Day", "New Year"],
+      "description": "",
+      "images": [
+        {
+          "url": "https://res.cloudinary.com/dpurb6xes/image/upload/v1674481544/vivans/iqjjuro5nggxjurznzgq.png",
+          "public_id": "vivans/iqjjuro5nggxjurznzgq"
+        }
+      ],
+      "quantity": "1 Box",
+      "__v": 0
+    },
+    {
+      "_id": "6363fb0d8eafc287ec69bb00",
+      "typeOfProduct": "Snacks",
+      "name": "Donut Cookie",
+      "primaryPrice": 100,
+      "primaryDiscountedPrice": 80,
+      "primaryDiscountedRate": 20,
+      "secondaryPrice": -24,
+      "secondaryDiscountedPrice": -24,
+      "secondaryDiscountedRate": 0,
+      "categories": [],
+      "tags": ["Snacks"],
+      "description": "",
+      "images": [
+        {
+          "url": "https://res.cloudinary.com/dpurb6xes/image/upload/v1667496715/vivans/i3pcfrhuvqebajawgyf1.png",
+          "public_id": "vivans/i3pcfrhuvqebajawgyf1"
+        },
+        {
+          "url": "https://res.cloudinary.com/dpurb6xes/image/upload/v1667496716/vivans/zpgplzoyvvramyorp4ja.png",
+          "public_id": "vivans/zpgplzoyvvramyorp4ja"
+        }
+      ],
+      "quantity": "Piece | 499",
+      "__v": 0
+    },
+    {
+      "_id": "636404968eafc287ec69bb15",
+      "typeOfProduct": "Snacks",
+      "name": "what is this",
+      "primaryPrice": 800,
+      "primaryDiscountedPrice": 600,
+      "primaryDiscountedRate": 25,
+      "secondaryPrice": 0,
+      "secondaryDiscountedPrice": 0,
+      "secondaryDiscountedRate": 0,
+      "categories": [],
+      "tags": ["Snacks"],
+      "description": "",
+      "images": [
+        {
+          "url": "https://res.cloudinary.com/dpurb6xes/image/upload/v1667499158/vivans/np4qnq0fj5gxa4btmxc0.png",
+          "public_id": "vivans/np4qnq0fj5gxa4btmxc0"
+        }
+      ],
+      "quantity": "Box | 100g",
+      "__v": 0
+    },
+    {
+      "_id": "63649b53518b5161981055e9",
+      "typeOfProduct": "Cake",
+      "name": "What is this",
+      "primaryPrice": 500,
+      "primaryDiscountedPrice": 450,
+      "primaryDiscountedRate": 10,
+      "secondaryPrice": 1000,
+      "secondaryDiscountedPrice": 900,
+      "secondaryDiscountedRate": 10,
+      "categories": ["Customized", "Flavor"],
+      "tags": ["Children's Day", "Red Velvet", "Designer", "Party"],
+      "description": "",
+      "images": [
+        {
+          "url": "https://res.cloudinary.com/dpurb6xes/image/upload/v1667537747/vivans/bfazig1jusuwbm9clxmx.png",
+          "public_id": "vivans/bfazig1jusuwbm9clxmx"
+        }
+      ],
+      "quantity": "Combo of 0 Boxs | 0 x 0",
+      "__v": 0
+    },
+    {
+      "_id": "63649b76518b5161981055ed",
+      "typeOfProduct": "Snacks",
+      "name": "New Snake",
+      "primaryPrice": 500,
+      "primaryDiscountedPrice": 500,
+      "primaryDiscountedRate": 0,
+      "secondaryPrice": 0,
+      "secondaryDiscountedPrice": 0,
+      "secondaryDiscountedRate": 0,
+      "categories": [],
+      "tags": ["Snacks"],
+      "description": "",
+      "images": [
+        {
+          "url": "https://res.cloudinary.com/dpurb6xes/image/upload/v1667537782/vivans/xjhpr8iril1qoxbaj512.png",
+          "public_id": "vivans/xjhpr8iril1qoxbaj512"
+        }
+      ],
+      "quantity": "Combo of 3 Boxs | 3 x 500g",
+      "__v": 0
+    },
+    {
+      "_id": "6364d0f67e69d9c4d6c94d7f",
+      "typeOfProduct": "Snacks",
+      "name": "snake 3",
+      "primaryPrice": 650,
+      "primaryDiscountedPrice": 650,
+      "primaryDiscountedRate": 0,
+      "secondaryPrice": 0,
+      "secondaryDiscountedPrice": 0,
+      "secondaryDiscountedRate": 0,
+      "categories": [],
+      "tags": ["Snacks"],
+      "description": "",
+      "images": [
+        {
+          "url": "https://res.cloudinary.com/dpurb6xes/image/upload/v1667551470/vivans/kdaavf0botlv3dbj7m8z.png",
+          "public_id": "vivans/kdaavf0botlv3dbj7m8z"
+        },
+        {
+          "url": "https://res.cloudinary.com/dpurb6xes/image/upload/v1667551478/vivans/hnyyh6l79vgavlhx2x9v.png",
+          "public_id": "vivans/hnyyh6l79vgavlhx2x9v"
+        }
+      ],
+      "quantity": "Combo of 5 Boxs | 5 x 0",
+      "__v": 0
+    },
+    {
+      "_id": "6364d1297e69d9c4d6c94d81",
+      "typeOfProduct": "Snacks",
+      "name": "snake 4",
+      "primaryPrice": 900,
+      "primaryDiscountedPrice": 720,
+      "primaryDiscountedRate": 20,
+      "secondaryPrice": 0,
+      "secondaryDiscountedPrice": 0,
+      "secondaryDiscountedRate": 0,
+      "categories": [],
+      "tags": ["Snacks"],
+      "description": "",
+      "images": [
+        {
+          "url": "https://res.cloudinary.com/dpurb6xes/image/upload/v1667551523/vivans/f2tnvzlnzlglhbemaeaf.png",
+          "public_id": "vivans/f2tnvzlnzlglhbemaeaf"
+        },
+        {
+          "url": "https://res.cloudinary.com/dpurb6xes/image/upload/v1667551530/vivans/p89tosylgzmf7krnw0i1.png",
+          "public_id": "vivans/p89tosylgzmf7krnw0i1"
+        }
+      ],
+      "quantity": "Combo of 6 Boxs | 6 x 600g",
+      "__v": 0
+    },
+    {
+      "_id": "6364d3dd7e69d9c4d6c94d83",
+      "typeOfProduct": "Snacks",
+      "name": "snake 01",
+      "primaryPrice": 1000,
+      "primaryDiscountedPrice": 800,
+      "primaryDiscountedRate": 20,
+      "secondaryPrice": 0,
+      "secondaryDiscountedPrice": 0,
+      "secondaryDiscountedRate": 0,
+      "categories": [],
+      "tags": ["Snacks"],
+      "description": "",
+      "images": [
+        {
+          "url": "https://res.cloudinary.com/dpurb6xes/image/upload/v1667552221/vivans/z0pl7ho7mc6zjgc1ueud.png",
+          "public_id": "vivans/z0pl7ho7mc6zjgc1ueud"
+        }
+      ],
+      "quantity": "Combo of 0 Boxs | 0 x 0",
+      "__v": 0
+    },
+    {
+      "_id": "6364d6017e69d9c4d6c94d8a",
+      "typeOfProduct": "Snacks",
+      "name": "Snake 05",
+      "primaryPrice": 1000,
+      "primaryDiscountedPrice": 1000,
+      "primaryDiscountedRate": 0,
+      "secondaryPrice": 0,
+      "secondaryDiscountedPrice": 0,
+      "secondaryDiscountedRate": 0,
+      "categories": [],
+      "tags": ["Snacks"],
+      "description": "",
+      "images": [
+        {
+          "url": "https://res.cloudinary.com/dpurb6xes/image/upload/v1674481581/vivans/bhal67shjg1rdtlmkyks.png",
+          "public_id": "vivans/bhal67shjg1rdtlmkyks"
+        },
+        {
+          "url": "https://res.cloudinary.com/dpurb6xes/image/upload/v1674481582/vivans/cyzqkxlw7scpqwgs9a3m.png",
+          "public_id": "vivans/cyzqkxlw7scpqwgs9a3m"
+        }
+      ],
+      "quantity": "Combo of NaN Boxs | NaN x 0",
+      "__v": 0
+    },
+    {
+      "_id": "6364d6627e69d9c4d6c94d8c",
+      "typeOfProduct": "Snacks",
+      "name": "snake 06",
+      "primaryPrice": 80,
+      "primaryDiscountedPrice": 80,
+      "primaryDiscountedRate": 0,
+      "secondaryPrice": 0,
+      "secondaryDiscountedPrice": 0,
+      "secondaryDiscountedRate": 0,
+      "categories": [],
+      "tags": ["Snacks"],
+      "description": "",
+      "images": [
+        {
+          "url": "https://res.cloudinary.com/dpurb6xes/image/upload/v1667552866/vivans/xp3rngwtrspubwmjjzzm.png",
+          "public_id": "vivans/xp3rngwtrspubwmjjzzm"
+        }
+      ],
+      "quantity": "Combo of 8 Cans | 8 x 800g",
+      "__v": 0
+    },
+    {
+      "_id": "6364d7087e69d9c4d6c94d8e",
+      "typeOfProduct": "Snacks",
+      "name": "Snake 07",
+      "primaryPrice": 90,
+      "primaryDiscountedPrice": 90,
+      "primaryDiscountedRate": 0,
+      "secondaryPrice": 0,
+      "secondaryDiscountedPrice": 0,
+      "secondaryDiscountedRate": 0,
+      "categories": [],
+      "tags": ["Snacks"],
+      "description": "",
+      "images": [
+        {
+          "url": "https://res.cloudinary.com/dpurb6xes/image/upload/v1667553032/vivans/rodndxuepvrewrdcklvx.png",
+          "public_id": "vivans/rodndxuepvrewrdcklvx"
+        }
+      ],
+      "quantity": "1 Box | 0",
+      "__v": 0
+    },
+    {
+      "_id": "6364d75b7e69d9c4d6c94d90",
+      "typeOfProduct": "Snacks",
+      "name": "Snack 1",
+      "primaryPrice": 100,
+      "primaryDiscountedPrice": 100,
+      "primaryDiscountedRate": 0,
+      "secondaryPrice": 0,
+      "secondaryDiscountedPrice": 0,
+      "secondaryDiscountedRate": 0,
+      "categories": [],
+      "tags": ["Snacks"],
+      "description": "",
+      "images": [
+        {
+          "url": "https://res.cloudinary.com/dpurb6xes/image/upload/v1667553115/vivans/qacvv16vahj44e7grpoy.png",
+          "public_id": "vivans/qacvv16vahj44e7grpoy"
+        }
+      ],
+      "quantity": "1 Box",
+      "__v": 0
+    },
+    {
+      "_id": "6364d77b7e69d9c4d6c94d92",
+      "typeOfProduct": "Snacks",
+      "name": "Snack 2",
+      "primaryPrice": 70,
+      "primaryDiscountedPrice": 70,
+      "primaryDiscountedRate": 0,
+      "secondaryPrice": 0,
+      "secondaryDiscountedPrice": 0,
+      "secondaryDiscountedRate": 0,
+      "categories": [],
+      "tags": ["Snacks"],
+      "description": "",
+      "images": [
+        {
+          "url": "https://res.cloudinary.com/dpurb6xes/image/upload/v1667553147/vivans/f1cnox4zcfztuwwowqbo.png",
+          "public_id": "vivans/f1cnox4zcfztuwwowqbo"
+        }
+      ],
+      "quantity": "1 Box | 100g",
+      "__v": 0
+    },
+    {
+      "_id": "6364d7a07e69d9c4d6c94d94",
+      "typeOfProduct": "Snacks",
+      "name": "Snack 3",
+      "primaryPrice": 300,
+      "primaryDiscountedPrice": 300,
+      "primaryDiscountedRate": 0,
+      "secondaryPrice": 0,
+      "secondaryDiscountedPrice": 0,
+      "secondaryDiscountedRate": 0,
+      "categories": [],
+      "tags": ["Snacks"],
+      "description": "",
+      "images": [
+        {
+          "url": "https://res.cloudinary.com/dpurb6xes/image/upload/v1674481656/vivans/sfbw5xllosdctr3canmv.png",
+          "public_id": "vivans/sfbw5xllosdctr3canmv"
+        },
+        {
+          "url": "https://res.cloudinary.com/dpurb6xes/image/upload/v1674481658/vivans/xdffrc2vet5dqvhghj2f.png",
+          "public_id": "vivans/xdffrc2vet5dqvhghj2f"
+        }
+      ],
+      "quantity": "Combo of 4 Boxs | 4 x undefined",
+      "__v": 0
+    },
+    {
+      "_id": "6364d7c97e69d9c4d6c94d96",
+      "typeOfProduct": "Snacks",
+      "name": "Snack 4",
+      "primaryPrice": 80,
+      "primaryDiscountedPrice": 80,
+      "primaryDiscountedRate": 0,
+      "secondaryPrice": 0,
+      "secondaryDiscountedPrice": 0,
+      "secondaryDiscountedRate": 0,
+      "categories": [],
+      "tags": ["Snacks"],
+      "description": "",
+      "images": [
+        {
+          "url": "https://res.cloudinary.com/dpurb6xes/image/upload/v1667553225/vivans/s7erix0k32ubva0krw8v.png",
+          "public_id": "vivans/s7erix0k32ubva0krw8v"
+        }
+      ],
+      "quantity": "Combo of 5 Pieces | 5 x 100ml",
+      "__v": 0
+    },
+    {
+      "_id": "6364e3cb1460c7859436a483",
+      "typeOfProduct": "Snacks",
+      "name": "Snake 6",
+      "primaryPrice": 800,
+      "primaryDiscountedPrice": 100,
+      "primaryDiscountedRate": 87.5,
+      "secondaryPrice": 0,
+      "secondaryDiscountedPrice": 0,
+      "secondaryDiscountedRate": 0,
+      "categories": [],
+      "tags": ["Snacks"],
+      "description": "",
+      "images": [
+        {
+          "url": "https://res.cloudinary.com/dpurb6xes/image/upload/v1667556299/vivans/giikoy0c0wzhq6aeqrjc.png",
+          "public_id": "vivans/giikoy0c0wzhq6aeqrjc"
+        }
+      ],
+      "quantity": "",
+      "__v": 0
+    },
+    {
+      "_id": "6364e4541460c7859436a485",
+      "typeOfProduct": "Snacks",
+      "name": "Snake 7",
+      "primaryPrice": 900,
+      "primaryDiscountedPrice": 800,
+      "primaryDiscountedRate": 11.11111111111111,
+      "secondaryPrice": 0,
+      "secondaryDiscountedPrice": 0,
+      "secondaryDiscountedRate": 0,
+      "categories": [],
+      "tags": ["Snacks"],
+      "description": "",
+      "images": [
+        {
+          "url": "https://res.cloudinary.com/dpurb6xes/image/upload/v1667556436/vivans/tedbj6fszzxozoroub9s.png",
+          "public_id": "vivans/tedbj6fszzxozoroub9s"
+        }
+      ],
+      "quantity": "Combo of 5 Boxs | 5 x ",
+      "__v": 0
+    },
+    {
+      "_id": "6364e4c31460c7859436a489",
+      "typeOfProduct": "Snacks",
+      "name": "Snake",
+      "primaryPrice": 0,
+      "primaryDiscountedPrice": 0,
+      "primaryDiscountedRate": 0,
+      "secondaryPrice": 0,
+      "secondaryDiscountedPrice": 0,
+      "secondaryDiscountedRate": 0,
+      "categories": [],
+      "tags": ["Snacks"],
+      "description": "",
+      "images": [
+        {
+          "url": "https://res.cloudinary.com/dpurb6xes/image/upload/v1674481615/vivans/crunllsoeacykdk8mlb5.png",
+          "public_id": "vivans/crunllsoeacykdk8mlb5"
+        },
+        {
+          "url": "https://res.cloudinary.com/dpurb6xes/image/upload/v1674481619/vivans/grm30y5uerrny13qxtfa.png",
+          "public_id": "vivans/grm30y5uerrny13qxtfa"
+        }
+      ],
+      "quantity": "1 Box",
+      "__v": 0
+    },
+    {
+      "_id": "636511a41460c7859436a48b",
+      "typeOfProduct": "Snacks",
+      "name": "This Snack 1",
+      "primaryPrice": 100,
+      "primaryDiscountedPrice": 70,
+      "primaryDiscountedRate": 30,
+      "secondaryPrice": 0,
+      "secondaryDiscountedPrice": 0,
+      "secondaryDiscountedRate": 0,
+      "categories": [],
+      "tags": ["Snacks"],
+      "description": "",
+      "images": [
+        {
+          "url": "https://res.cloudinary.com/dpurb6xes/image/upload/v1667568036/vivans/xqop76l8hyjpj82nnrq8.png",
+          "public_id": "vivans/xqop76l8hyjpj82nnrq8"
+        }
+      ],
+      "quantity": "1 Box",
+      "__v": 0
+    },
+    {
+      "_id": "636511d61460c7859436a48d",
+      "typeOfProduct": "Snacks",
+      "name": "This Snack 2",
+      "primaryPrice": 100,
+      "primaryDiscountedPrice": 50,
+      "primaryDiscountedRate": 50,
+      "secondaryPrice": 0,
+      "secondaryDiscountedPrice": 0,
+      "secondaryDiscountedRate": 0,
+      "categories": [],
+      "tags": ["Add Ons", "Snacks"],
+      "description": "",
+      "images": [
+        {
+          "url": "https://res.cloudinary.com/dpurb6xes/image/upload/v1667568086/vivans/drxktspljkxdob9pljkl.png",
+          "public_id": "vivans/drxktspljkxdob9pljkl"
+        }
+      ],
+      "quantity": "1 Can | 50g",
+      "__v": 0
+    },
+    {
+      "_id": "636511f21460c7859436a48f",
+      "typeOfProduct": "Snacks",
+      "name": "This Snack 3",
+      "primaryPrice": 200,
+      "primaryDiscountedPrice": 200,
+      "primaryDiscountedRate": 0,
+      "secondaryPrice": 0,
+      "secondaryDiscountedPrice": 0,
+      "secondaryDiscountedRate": 0,
+      "categories": [],
+      "tags": ["Snacks"],
+      "description": "",
+      "images": [
+        {
+          "url": "https://res.cloudinary.com/dpurb6xes/image/upload/v1667568114/vivans/fq9e2cuqdsoo0fr8sf2u.png",
+          "public_id": "vivans/fq9e2cuqdsoo0fr8sf2u"
+        }
+      ],
+      "quantity": "Combo of 4 Pieces",
+      "__v": 0
+    },
+    {
+      "_id": "6365120f1460c7859436a491",
+      "typeOfProduct": "Snacks",
+      "name": "This Snack 4",
+      "primaryPrice": 400,
+      "primaryDiscountedPrice": 400,
+      "primaryDiscountedRate": 0,
+      "secondaryPrice": 0,
+      "secondaryDiscountedPrice": 0,
+      "secondaryDiscountedRate": 0,
+      "categories": [],
+      "tags": ["Snacks"],
+      "description": "",
+      "images": [
+        {
+          "url": "https://res.cloudinary.com/dpurb6xes/image/upload/v1674481822/vivans/jfuplgtjwmq8e6ngwdxd.png",
+          "public_id": "vivans/jfuplgtjwmq8e6ngwdxd"
+        }
+      ],
+      "quantity": "Combo of 5 Boxs | 5 x 400g",
+      "__v": 0
+    },
+    {
+      "_id": "63722630e7a27c150ece2c5c",
+      "typeOfProduct": "Cake",
+      "name": "New Coke",
+      "primaryPrice": 1000,
+      "primaryDiscountedPrice": 1000,
+      "primaryDiscountedRate": 0,
+      "secondaryPrice": 2000,
+      "secondaryDiscountedPrice": 2000,
+      "secondaryDiscountedRate": 0,
+      "categories": ["Flavor", "Special one"],
+      "tags": ["Choclate", "White Forest", "Truffles", "Mother's Day"],
+      "description": "",
+      "images": [
+        {
+          "url": "https://res.cloudinary.com/dpurb6xes/image/upload/v1674481793/vivans/qlc1nbvpifyxexndl90j.png",
+          "public_id": "vivans/qlc1nbvpifyxexndl90j"
+        },
+        {
+          "url": "https://res.cloudinary.com/dpurb6xes/image/upload/v1674481794/vivans/bmsdophfafekf4tmkfnf.png",
+          "public_id": "vivans/bmsdophfafekf4tmkfnf"
+        }
+      ],
+      "quantity": "1 Box",
+      "__v": 0
+    },
+    {
+      "_id": "63744c5d320fea63131e23c6",
+      "typeOfProduct": "Cake",
+      "name": "New Delicious Cake",
+      "primaryPrice": 500,
+      "primaryDiscountedPrice": 300,
+      "primaryDiscountedRate": 40,
+      "secondaryPrice": 1000,
+      "secondaryDiscountedPrice": 600,
+      "secondaryDiscountedRate": 40,
+      "categories": ["Flavor", "Occasion"],
+      "tags": ["Vanilla", "Photo", "Party", "Red Velvet", "Designer"],
+      "description": "This is the description",
+      "images": [
+        {
+          "url": "https://res.cloudinary.com/dpurb6xes/image/upload/v1668566095/vivans/fvvsxcjfqfzjsxfh1qxi.png",
+          "public_id": "vivans/fvvsxcjfqfzjsxfh1qxi"
+        },
+        {
+          "url": "https://res.cloudinary.com/dpurb6xes/image/upload/v1668566100/vivans/l8fce2qjz2usnblmorol.png",
+          "public_id": "vivans/l8fce2qjz2usnblmorol"
+        },
+        {
+          "url": "https://res.cloudinary.com/dpurb6xes/image/upload/v1668566108/vivans/oe2mwehpvqytm33bu7f4.png",
+          "public_id": "vivans/oe2mwehpvqytm33bu7f4"
+        }
+      ],
+      "quantity": "1 Box",
+      "__v": 0
+    }
+  ]
+}

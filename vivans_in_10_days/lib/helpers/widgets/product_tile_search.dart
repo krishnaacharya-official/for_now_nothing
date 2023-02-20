@@ -63,7 +63,7 @@ class ProductTileSearch extends StatelessWidget {
                   .copyWith(overflow: TextOverflow.ellipsis),
             ).marginLeft(4),
             Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.baseline,
               textBaseline: TextBaseline.alphabetic,
               children: [
                 // discountedPrice.textLargeBold().marginLeftRight(4),

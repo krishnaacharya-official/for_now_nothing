@@ -10,6 +10,7 @@ import 'package:vivans_in_10_days/design_system/colors.dart';
 import 'package:vivans_in_10_days/design_system/text.dart';
 import 'package:vivans_in_10_days/helpers/constants.dart';
 import 'package:vivans_in_10_days/helpers/extensions.dart';
+import 'package:vivans_in_10_days/helpers/shimmer_home.dart';
 import 'package:vivans_in_10_days/helpers/widgets/product_tile_home.dart';
 import 'package:vivans_in_10_days/helpers/widgets/product_tile_search.dart';
 import 'package:vivans_in_10_days/models/product_model.dart';
@@ -28,6 +29,7 @@ class DetailsScreen extends StatefulWidget {
 
 class _DetailsScreenState extends State<DetailsScreen> {
   PageController? pageViewController;
+  final productTileWidth = 130.toDouble();
   final productTileHeight = 16 * 11.5.toDouble();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   String buttonGroup = "1kg";
@@ -347,7 +349,47 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         widget.productModel.tags),
                 builder: ((context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const CircularProgressIndicator();
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            shimmerContainer(productTileWidth.toInt(), 4,
+                                MediaQuery.of(context).size.width / 3 - 16),
+                            shimmerContainer(10, 4,
+                                MediaQuery.of(context).size.width / 3 - 32),
+                            shimmerContainer(10, 16,
+                                MediaQuery.of(context).size.width / 3 - 64)
+                          ],
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            shimmerContainer(productTileWidth.toInt(), 4,
+                                MediaQuery.of(context).size.width / 3 - 16),
+                            shimmerContainer(10, 4,
+                                MediaQuery.of(context).size.width / 3 - 32),
+                            shimmerContainer(10, 16,
+                                MediaQuery.of(context).size.width / 3 - 64)
+                          ],
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            shimmerContainer(productTileWidth.toInt(), 4,
+                                MediaQuery.of(context).size.width / 3 - 16),
+                            shimmerContainer(10, 4,
+                                MediaQuery.of(context).size.width / 3 - 32),
+                            shimmerContainer(10, 16,
+                                MediaQuery.of(context).size.width / 3 - 64)
+                          ],
+                        ),
+                      ],
+                    ).marginLeftRight(8);
                   }
 
                   return SizedBox(
