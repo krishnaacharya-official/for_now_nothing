@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vivans_in_10_days/cubit/users/user_state.dart';
 import 'package:vivans_in_10_days/models/address_model.dart';
+import 'package:vivans_in_10_days/models/cart_model.dart';
 import 'package:vivans_in_10_days/models/user_model.dart';
 
 class UserCubit extends Cubit<UserState> {
@@ -28,7 +29,16 @@ class UserCubit extends Cubit<UserState> {
           : {print("There is no such user"), emit(UserNotExists())};
     });
   }
-
+// Stream<QuerySnapshot> collectionStream = FirebaseFirestore.instance.collection('your_collection_name').snapshots();
+// Stream<int> totalPriceStream = collectionStream.fold(0, (total, snapshot) {
+//   return total +
+//       snapshot.docs.map((document) => document.data()['price'] as int).reduce((total, price) => total + price);
+// });
+// Stream<int> totalPriceStream = collectionStream.map((QuerySnapshot snapshot) {
+//   return snapshot.docs.map((DocumentSnapshot document) {
+//     return document.data()['price'] as int;
+//   }).reduce((total, price) => total + price);
+// });
   updateUser(
       {String? fullName,
       String? avatar,
@@ -66,6 +76,22 @@ class UserCubit extends Cubit<UserState> {
     });
   }
 
+  Future<void> addProductToCart(
+      {required CartProductModel cartProductModel}) async {
+    emit(UserButtonLoadingState(userModel: state.userModel));
+    _firestore
+        .collection('users')
+        .doc(_currentUser?.uid)
+        .collection('cartModel')
+        .doc(cartProductModel.productId)
+        .set(cartProductModel.toJson())
+        .catchError((error) {
+      emit(UserException(error: error));
+    }).then((value) {
+      emit(UserCartSavedUpdated(userModel: state.userModel));
+    });
+  }
+
   Future<void> updateAddress(
       {required AddressModel address, required String addressId}) async {
     print("The state inside the updateAddress is ${state.userModel}");
@@ -84,6 +110,24 @@ class UserCubit extends Cubit<UserState> {
     });
   }
 
+  Future<void> updateCartItem(
+      {required CartProductModel cart, required String cartId}) async {
+    print("The state inside the updatecart is ${state.userModel}");
+    emit(UserButtonLoadingState(userModel: state.userModel));
+    print("The state inside the updatecart is ${state.userModel}");
+    _firestore
+        .collection('users')
+        .doc(_currentUser?.uid)
+        .collection('cartModel')
+        .doc(cartId)
+        .set(cart.toJson())
+        .catchError((error) {
+      emit(UserException(error: error, userModel: state.userModel));
+    }).then((value) {
+      emit(UserCartSavedUpdated(userModel: state.userModel));
+    });
+  }
+
   Future<void> deleteAddress({required String addressId}) async {
     emit(UserButtonLoadingState(userModel: state.userModel));
     _firestore
@@ -99,6 +143,21 @@ class UserCubit extends Cubit<UserState> {
     });
   }
 
+  Future<void> deleteCart({required String cartId}) async {
+    emit(UserButtonLoadingState(userModel: state.userModel));
+    _firestore
+        .collection('users')
+        .doc(_currentUser?.uid)
+        .collection('cartModel')
+        .doc(cartId)
+        .delete()
+        .catchError((error) {
+      emit(UserException(error: error, userModel: state.userModel));
+    }).then((value) {
+      emit(UserCartSavedUpdated(userModel: state.userModel));
+    });
+  }
+
   Stream<List<AddressModel>> getAddress() {
     return _firestore
         .collection('users')
@@ -107,6 +166,17 @@ class UserCubit extends Cubit<UserState> {
         .snapshots()
         .map((event) => event.docs
             .map((e) => AddressModel.fromJson(e.data(), e.id))
+            .toList());
+  }
+
+  Stream<List<CartProductModel>> getCartItems() {
+    return _firestore
+        .collection('users')
+        .doc(_currentUser?.uid)
+        .collection('cartModel')
+        .snapshots()
+        .map((event) => event.docs
+            .map((e) => CartProductModel.fromJson(e.data(), e.id))
             .toList());
   }
 

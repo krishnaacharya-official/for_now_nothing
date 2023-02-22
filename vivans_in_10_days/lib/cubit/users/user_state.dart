@@ -48,6 +48,10 @@ class UserAddressSavedUpdated extends UserState {
   UserAddressSavedUpdated({UserModel? userModel}) : super(userModel: userModel);
 }
 
+class UserCartSavedUpdated extends UserState {
+  UserCartSavedUpdated({UserModel? userModel}) : super(userModel: userModel);
+}
+
 class UserException extends UserState {
   String error;
   @override

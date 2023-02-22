@@ -6,6 +6,8 @@ import 'package:go_router/go_router.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
 import 'package:vivans_in_10_days/cubit/products/products_cubit.dart';
+import 'package:vivans_in_10_days/cubit/users/user_cubit.dart';
+import 'package:vivans_in_10_days/cubit/users/user_state.dart';
 import 'package:vivans_in_10_days/design_system/colors.dart';
 import 'package:vivans_in_10_days/design_system/text.dart';
 import 'package:vivans_in_10_days/helpers/constants.dart';
@@ -13,6 +15,7 @@ import 'package:vivans_in_10_days/helpers/extensions.dart';
 import 'package:vivans_in_10_days/helpers/shimmer_home.dart';
 import 'package:vivans_in_10_days/helpers/widgets/product_tile_home.dart';
 import 'package:vivans_in_10_days/helpers/widgets/product_tile_search.dart';
+import 'package:vivans_in_10_days/models/cart_model.dart';
 import 'package:vivans_in_10_days/models/product_model.dart';
 
 // ignore: slash_for_doc_comments
@@ -32,7 +35,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
   final productTileWidth = 130.toDouble();
   final productTileHeight = 16 * 11.5.toDouble();
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  String buttonGroup = "1kg";
+  String buttonGroup = "1/2kg";
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +57,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
               height: MediaQuery.of(context).size.height / 2 - (16 * 2),
               child: Stack(
                 children: [
+                  /**alert: Keep the images pre-loaded before going to the next image */
                   PageView(
                     controller: pageViewController ??=
                         PageController(initialPage: 0),
@@ -180,6 +184,75 @@ class _DetailsScreenState extends State<DetailsScreen> {
                           shape: RoundedRectangleBorder(
                               side: BorderSide(
                                   width: 1,
+                                  color: (buttonGroup == "1/2kg"
+                                      ? DesignColor.blue
+                                      : DesignColor.black)),
+                              borderRadius: BorderRadius.circular(20)),
+                          groupValue: buttonGroup,
+                          contentPadding: EdgeInsets.zero,
+                          controlAffinity: ListTileControlAffinity.leading,
+                          value: "1/2kg",
+                          onChanged: (val) {
+                            setState(() {
+                              buttonGroup = val.toString();
+                            });
+                          },
+                          title: Row(
+                            crossAxisAlignment: CrossAxisAlignment.baseline,
+                            textBaseline: TextBaseline.alphabetic,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  getPriceWithRupeeTag(
+                                          widget.productModel
+                                              .primaryDiscountedPrice,
+                                          textStyleLargeBold())
+                                      .marginRight(),
+                                  Visibility(
+                                    visible: getDiscountRateOrEmpty(widget
+                                            .productModel
+                                            .primaryDiscountedRate) !=
+                                        "",
+                                    child: getPriceWithRupeeTag(
+                                      widget.productModel.primaryPrice,
+                                      textStyleMediumRegular().copyWith(
+                                          decoration:
+                                              TextDecoration.lineThrough),
+                                    ).marginRight(),
+                                  ),
+                                  Visibility(
+                                    visible: getDiscountRateOrEmpty(widget
+                                            .productModel
+                                            .primaryDiscountedRate) !=
+                                        "",
+                                    child: Container(
+                                      padding: const EdgeInsets.all(4),
+                                      decoration: BoxDecoration(
+                                        color:
+                                            DesignColor.green.withOpacity(.2),
+                                        shape: BoxShape.rectangle,
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      child: Text(
+                                        getDiscountRateOrEmptyoff(widget
+                                            .productModel
+                                            .primaryDiscountedRate),
+                                        style: textStyleSmall().copyWith(
+                                            fontWeight: FontWeight.w700),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                              "1/2kg".textLargeBold().marginRight(16)
+                            ],
+                          )).marginDown(16),
+                      RadioListTile(
+                          activeColor: DesignColor.blue,
+                          shape: RoundedRectangleBorder(
+                              side: BorderSide(
+                                  width: 1,
                                   color: (buttonGroup == "1kg"
                                       ? DesignColor.blue
                                       : DesignColor.black)),
@@ -245,75 +318,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               "1 kg".textLargeBold().marginRight(16)
                             ],
                           )).marginDown(8),
-                      RadioListTile(
-                          activeColor: DesignColor.blue,
-                          shape: RoundedRectangleBorder(
-                              side: BorderSide(
-                                  width: 1,
-                                  color: (buttonGroup == "1/2kg"
-                                      ? DesignColor.blue
-                                      : DesignColor.black)),
-                              borderRadius: BorderRadius.circular(20)),
-                          groupValue: buttonGroup,
-                          contentPadding: EdgeInsets.zero,
-                          controlAffinity: ListTileControlAffinity.leading,
-                          value: "1/2kg",
-                          onChanged: (val) {
-                            setState(() {
-                              buttonGroup = val.toString();
-                            });
-                          },
-                          title: Row(
-                            crossAxisAlignment: CrossAxisAlignment.baseline,
-                            textBaseline: TextBaseline.alphabetic,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  getPriceWithRupeeTag(
-                                          widget.productModel
-                                              .primaryDiscountedPrice,
-                                          textStyleLargeBold())
-                                      .marginRight(),
-                                  Visibility(
-                                    visible: getDiscountRateOrEmpty(widget
-                                            .productModel
-                                            .primaryDiscountedRate) !=
-                                        "",
-                                    child: getPriceWithRupeeTag(
-                                      widget.productModel.primaryPrice,
-                                      textStyleMediumRegular().copyWith(
-                                          decoration:
-                                              TextDecoration.lineThrough),
-                                    ).marginRight(),
-                                  ),
-                                  Visibility(
-                                    visible: getDiscountRateOrEmpty(widget
-                                            .productModel
-                                            .primaryDiscountedRate) !=
-                                        "",
-                                    child: Container(
-                                      padding: const EdgeInsets.all(4),
-                                      decoration: BoxDecoration(
-                                        color:
-                                            DesignColor.green.withOpacity(.2),
-                                        shape: BoxShape.rectangle,
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      child: Text(
-                                        getDiscountRateOrEmptyoff(widget
-                                            .productModel
-                                            .primaryDiscountedRate),
-                                        style: textStyleSmall().copyWith(
-                                            fontWeight: FontWeight.w700),
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                              "1/2kg".textLargeBold().marginRight(16)
-                            ],
-                          )).marginDown(16),
                     ],
                   ),
                 ),
@@ -342,116 +346,203 @@ class _DetailsScreenState extends State<DetailsScreen> {
             //   height: productTileHeight,
             //   child: productsListHorizontal(widget.products),
             // ),
+            /**bug: Buy now seems bumpping up everytime you click the add to cart button */
             /**bug: Thiss comes very very very late, I need to figure out a way for this */
             FutureBuilder(
                 future: BlocProvider.of<ProductsCubit>(context)
                     .fetchSimilarForDetailsPage(widget.productModel.categories,
                         widget.productModel.tags),
                 builder: ((context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            shimmerContainer(productTileWidth.toInt(), 4,
-                                MediaQuery.of(context).size.width / 3 - 16),
-                            shimmerContainer(10, 4,
-                                MediaQuery.of(context).size.width / 3 - 32),
-                            shimmerContainer(10, 16,
-                                MediaQuery.of(context).size.width / 3 - 64)
-                          ],
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            shimmerContainer(productTileWidth.toInt(), 4,
-                                MediaQuery.of(context).size.width / 3 - 16),
-                            shimmerContainer(10, 4,
-                                MediaQuery.of(context).size.width / 3 - 32),
-                            shimmerContainer(10, 16,
-                                MediaQuery.of(context).size.width / 3 - 64)
-                          ],
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            shimmerContainer(productTileWidth.toInt(), 4,
-                                MediaQuery.of(context).size.width / 3 - 16),
-                            shimmerContainer(10, 4,
-                                MediaQuery.of(context).size.width / 3 - 32),
-                            shimmerContainer(10, 16,
-                                MediaQuery.of(context).size.width / 3 - 64)
-                          ],
-                        ),
-                      ],
-                    ).marginLeftRight(8);
+                  if (snapshot.hasData) {
+                    return SizedBox(
+                        height: productTileHeight,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            ProductModel productModel =
+                                snapshot.data?[index] as ProductModel;
+                            return ProductTileSearch(
+                                    imageUrl: productModel.images[0].url,
+                                    title: productModel.name,
+                                    discountedPrice:
+                                        productModel.primaryDiscountedPrice!,
+                                    actualPrice: productModel.primaryPrice)
+                                .marginRight();
+                          },
+                          itemCount: (snapshot.data?.length ?? 0) > 6
+                              ? 6
+                              : snapshot.data?.length,
+                        )).marginLeft(16);
                   }
+                  // if (snapshot.connectionState == ConnectionState.waiting &&
+                  //     !snapshot.hasData) {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          shimmerContainer(productTileWidth.toInt(), 4,
+                              MediaQuery.of(context).size.width / 3 - 16),
+                          shimmerContainer(10, 4,
+                              MediaQuery.of(context).size.width / 3 - 32),
+                          shimmerContainer(10, 16,
+                              MediaQuery.of(context).size.width / 3 - 64)
+                        ],
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          shimmerContainer(productTileWidth.toInt(), 4,
+                              MediaQuery.of(context).size.width / 3 - 16),
+                          shimmerContainer(10, 4,
+                              MediaQuery.of(context).size.width / 3 - 32),
+                          shimmerContainer(10, 16,
+                              MediaQuery.of(context).size.width / 3 - 64)
+                        ],
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          shimmerContainer(productTileWidth.toInt(), 4,
+                              MediaQuery.of(context).size.width / 3 - 16),
+                          shimmerContainer(10, 4,
+                              MediaQuery.of(context).size.width / 3 - 32),
+                          shimmerContainer(10, 16,
+                              MediaQuery.of(context).size.width / 3 - 64)
+                        ],
+                      ),
+                    ],
+                  ).marginLeftRight(8);
+                }
 
-                  return SizedBox(
-                      height: productTileHeight,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          ProductModel productModel =
-                              snapshot.data?[index] as ProductModel;
-                          return ProductTileSearch(
-                                  imageUrl: productModel.images[0].url,
-                                  title: productModel.name,
-                                  discountedPrice:
-                                      productModel.primaryDiscountedPrice!,
-                                  actualPrice: productModel.primaryPrice)
-                              .marginRight();
-                        },
-                        itemCount: snapshot.data!.length > 6
-                            ? 6
-                            : snapshot.data!.length,
-                      )).marginLeft(16);
-                }))
+                    // }
+                    ))
           ],
         ),
       ),
-      bottomNavigationBar: Material(
-        elevation: 1,
-        child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-          InkWell(
-            onTap: () {},
-            child: Container(
-              padding:
-                  const EdgeInsets.only(left: 8, top: 16, bottom: 16, right: 8),
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width / 2 - 16,
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: ["Add to Cart".textLargeBold()]),
-              ),
-            ),
-          ),
-          Container(
-            padding:
-                const EdgeInsets.only(top: 16, bottom: 16, left: 8, right: 8),
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width / 2 - 16,
+      bottomNavigationBar: BlocBuilder<UserCubit, UserState>(
+        builder: (context, state) {
+          if (state is UserButtonLoadingState) {
+            return Material(
+              elevation: 1,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  // crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.only(
+                          left: 8, top: 16, bottom: 16, right: 8),
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width / 2 - 16,
+                        child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              SizedBox(
+                                  // height: 24,
+                                  // width: 24,
+                                  child: CircularProgressIndicator())
+                            ]),
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.only(
+                          top: 16, bottom: 16, left: 8, right: 8),
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width / 2 - 16,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Buy Now",
+                              style: textStyleLargeBold().copyWith(),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ).addGradient(
+                        const Alignment(-1.387, -1.83),
+                        const Alignment(1.571, 2.714),
+                        const Color(0xfffdeb71),
+                        const Color(0xfff8d800))
+                  ]),
+            );
+          }
+          return Material(
+            elevation: 1,
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Text(
-                    "Buy Now",
-                    style: textStyleLargeBold().copyWith(),
+                  InkWell(
+                    onTap: () {
+                      var imageUrl = widget.productModel.images[0].url;
+                      var name = widget.productModel.name;
+                      var typeOfProduct = widget.productModel.typeOfProduct;
+                      var actualPrice = buttonGroup == "1/2kg"
+                          ? widget.productModel.primaryPrice
+                          : widget.productModel.secondaryPrice ?? 0;
+                      var discountedPrice = buttonGroup == "1/2kg"
+                          ? widget.productModel.primaryDiscountedPrice
+                          : widget.productModel.secondaryDiscountedPrice;
+                      var discountedRate = buttonGroup == "1/2kg"
+                          ? widget.productModel.primaryDiscountedRate
+                          : widget.productModel.secondaryDiscountedRate;
+                      var quantity = 1;
+                      CartProductModel cartModel = CartProductModel(
+                          productId: widget.productModel.id,
+                          actualPrice: actualPrice,
+                          typeOfProduct: typeOfProduct,
+                          discountedPrice: discountedPrice ?? 0,
+                          discountedRate: discountedRate ?? 0,
+                          imageUrl: imageUrl,
+                          name: name,
+                          quantity: quantity);
+                      BlocProvider.of<UserCubit>(context)
+                          .addProductToCart(cartProductModel: cartModel);
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.only(
+                          left: 8, top: 16, bottom: 16, right: 8),
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width / 2 - 16,
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              (state is UserCartSavedUpdated)
+                                  ? "Go to Cart".textLargeBold()
+                                  : "Add to Cart".textLargeBold()
+                            ]),
+                      ),
+                    ),
                   ),
-                ],
-              ),
-            ),
-          ).addGradient(
-              const Alignment(-1.387, -1.83),
-              const Alignment(1.571, 2.714),
-              const Color(0xfffdeb71),
-              const Color(0xfff8d800))
-        ]),
+                  Container(
+                    padding: const EdgeInsets.only(
+                        top: 16, bottom: 16, left: 8, right: 8),
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width / 2 - 16,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Buy Now",
+                            style: textStyleLargeBold().copyWith(),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ).addGradient(
+                      const Alignment(-1.387, -1.83),
+                      const Alignment(1.571, 2.714),
+                      const Color(0xfffdeb71),
+                      const Color(0xfff8d800))
+                ]),
+          );
+        },
       ),
     );
   }
